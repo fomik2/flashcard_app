@@ -3,15 +3,15 @@
   width: 960px;
   
   > section {
-      clear: both;
+    clear: both;
   }
   
   > header {
-      margin-bottom: 46px;
+    margin-bottom: 46px;
      
       > h1 {
-          float: left;
-          margin: 0;
+        float: left;
+        margin: 0;
       }
   }
 
@@ -20,8 +20,9 @@
 .navigation-links {
   float: right;
  
-  li { display: inline-block;
-      margin: 0 16px;
+  li { 
+    display: inline-block;
+    margin: 0 16px;
    }
 }
 
