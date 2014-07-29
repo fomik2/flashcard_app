@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-   root 'welcome#index'
+  resources :cards 
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,0 +1,15 @@
+<h1>All Cards</h1>
+<table border="1" cellpadding="8">
+ <tr>
+  <th>Original Text</th>
+  <th>Translated Text</th>
+ <tr>
+
+<% @cards.each do |f| %>
+<tr>
+ <td><%= f.original_text %> </td>
+ <td><%= f.translated_text %> </td>
+ <td><%= f.review_date %> </td>
+</tr>
+<% end %>
+</table>
