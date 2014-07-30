@@ -5,11 +5,15 @@
   <th>Translated Text</th>
  <tr>
 
-<% @cards.each do |f| %>
+<% @cards.each do |f| 
+ a = f.review_date 
+ a = a.strftime("%d/%m/%Y") %>
 <tr>
  <td><%= f.original_text %> </td>
  <td><%= f.translated_text %> </td>
- <td><%= f.review_date %> </td>
+ <td><%= a %> </td>
 </tr>
 <% end %>
 </table>
+<br>
+<%= link_to "Home", root_path %>
