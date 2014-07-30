@@ -1,0 +1,18 @@
+<section id="container">
+  <h1>Card number <%= @cards.id %> </h1>
+  <table border="1" cellpadding="8">
+    <tr>
+      <th>Original Text</th>
+      <th>Translated Text</th>
+      <th>Created At</th>
+    <tr>
+      <tr>
+        <td><%= @cards.original_text %> </td>
+        <td><%= @cards.translated_text %> </td>
+        <td><%= @cards.review_date.strftime("%d/%m/%Y")  %> </td>
+      </tr>
+  </table>
+  <br>
+  <%= link_to "Home", root_path %>
+  | <%= link_to 'Edit', edit_card_path(@cards) %>
+ </section>
