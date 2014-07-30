@@ -1,19 +1,18 @@
 <section id="container">
-<h1>All Cards</h1>
-<table border="1" cellpadding="8">
- <tr>
-  <th>Original Text</th>
-  <th>Translated Text</th>
- <tr>
-
-<% @cards.each do |f| %>
-<tr>
- <td><%= f.original_text %> </td>
- <td><%= f.translated_text %> </td>
- <td><%= f.review_date.strftime("%d/%m/%Y")  %> </td>
-</tr>
-<% end %>
-</table>
-<br>
-<%= link_to "Home", root_path %>
+  <h1>All Cards</h1>
+  <table border="1" cellpadding="8">
+    <tr>
+      <th>Original Text</th>
+      <th>Translated Text</th>
+    <tr>
+    <% @cards.each do |f| %>
+      <tr>
+        <td><%= f.original_text %> </td>
+        <td><%= f.translated_text %> </td>
+        <td><%= f.review_date.strftime("%d/%m/%Y")  %> </td>
+      </tr>
+    <% end %>
+  </table>
+  <br>
+  <%= link_to "Home", root_path %>
  </section>
