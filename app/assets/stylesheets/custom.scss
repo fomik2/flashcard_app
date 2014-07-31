@@ -1,3 +1,5 @@
+$error_color: #A00000;
+
 #container {
   margin: 48px auto;
   width: 960px;
@@ -15,8 +17,14 @@
 }
 
 #error_explanation {
-  color: #A00000;
-} 
+  color: $error_color;
+}
+
+.error {
+  color: $error_color;
+  font-style: italic;
+  padding-left:5px; 
+}
 
 .navigation-links {
   float: right;

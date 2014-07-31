@@ -1,24 +1,31 @@
 class CardsController < ApplicationController
   
   def new
-    @card = Card.new #добавили, чтобы при отображении вьюхи new @cards не был nil 
-  end                 #и не вылетало ошибки на if @cards.errors.any
+    #добавили, чтобы при отображении вьюхи new @cards не был nil 
+    #и не вылетало ошибки на if @cards.errors.any
+    @card = Card.new 
+  end                 
   
   def index
    @cards = Card.all
   end
   
   def create
-   @card = Card.new(card_params) #создаем запись из тех параметров, которые разрешили передавать
-   if @card.save #сохраняем запись в базу
-     redirect_to @card #идем в представление show
+   #создаем запись из тех параметров, которые разрешили передавать
+   @card = Card.new(card_params) 
+   #сохраняем запись в базу
+   if @card.save 
+     #идем в представление show
+     redirect_to @card 
    else
-    render 'new' #если не сработало, то перегружаем представление
+    #если не сработало, то перегружаем представление
+    render 'new' 
    end 
   end
 
   def show
-    @card = Card.find(params[:id]) #ищем в базе запись по id и выводим в представлении show
+    #ищем в базе запись по id и выводим в представлении show
+    @card = Card.find(params[:id]) 
   end
 
   def edit
@@ -27,8 +34,8 @@ class CardsController < ApplicationController
   
   def update
     @card = Card.find(params[:id])
-    if @card.update(cards_params)
-      redirect_to @cards
+    if @card.update(card_params)
+      redirect_to @card
     else
       render 'edit'
     end
@@ -41,8 +48,8 @@ class CardsController < ApplicationController
   end
 
 private
-  
-  def card_params #определяем те параметры, которые можно передавать в метод контроллера create
+  #определяем те параметры, которые можно передавать в метод контроллера create
+  def card_params 
     params.require(:card).permit(:original_text, :translated_text, :review_date)
   end 
 end
