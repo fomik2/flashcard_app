@@ -1,16 +1,4 @@
-<section id="container">
-  <% if @cards.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@cards.errors.count, "error") %> prohibited
-      this article from being saved:</h2>
-    <ul>
-      <% @cards.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-  </br>
-  <% end %>
+<%= render 'errors' %> <!-- Валидация формы, вывод ошибок, если они есть -->
   <h1>Edit card <%= @cards.id %></h1>
   <%= form_for :cards, url: card_path(@cards), method: :patch do |f| %>
    <p>
