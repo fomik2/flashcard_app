@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
   
   def new
-    @cards = Card.new #добавили, чтобы при отображении вьюхи new @cards не был nil 
+    @card = Card.new #добавили, чтобы при отображении вьюхи new @cards не был nil 
   end                 #и не вылетало ошибки на if @cards.errors.any
   
   def index
@@ -9,25 +9,25 @@ class CardsController < ApplicationController
   end
   
   def create
-   @cards = Card.new(cards_params) #создаем запись из тех параметров, которые разрешили передавать
-   if @cards.save #сохраняем запись в базу
-     redirect_to @cards #идем в представление show
+   @card = Card.new(card_params) #создаем запись из тех параметров, которые разрешили передавать
+   if @card.save #сохраняем запись в базу
+     redirect_to @card #идем в представление show
    else
     render 'new' #если не сработало, то перегружаем представление
    end 
   end
 
   def show
-    @cards = Card.find(params[:id]) #ищем в базе запись по id и выводим в представлении show
+    @card = Card.find(params[:id]) #ищем в базе запись по id и выводим в представлении show
   end
 
   def edit
-    @cards = Card.find(params[:id])
+    @card = Card.find(params[:id])
   end
   
   def update
-    @cards = Card.find(params[:id])
-    if @cards.update(cards_params)
+    @card = Card.find(params[:id])
+    if @card.update(cards_params)
       redirect_to @cards
     else
       render 'edit'
@@ -35,14 +35,14 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @cards = Card.find(params[:id])
-    @cards.destroy
+    @card = Card.find(params[:id])
+    @card.destroy
     redirect_to cards_path 
   end
 
 private
   
-  def cards_params #определяем те параметры, которые можно передавать в метод контроллера create
-    params.require(:cards).permit(:original_text, :translated_text, :review_date)
+  def card_params #определяем те параметры, которые можно передавать в метод контроллера create
+    params.require(:card).permit(:original_text, :translated_text, :review_date)
   end 
 end
