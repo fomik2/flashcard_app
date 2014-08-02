@@ -47,6 +47,19 @@ class CardsController < ApplicationController
     redirect_to cards_path 
   end
 
+  def review
+    # выбираем карту по id, который принимаем из формы
+    card = Card.find(params[:id])
+    # проверка на совпадение методом из модели
+    if card.check_translate(params[:translated_text])
+      card.update(:review_date => Date.today + 3) 
+      redirect_to root_path
+    else
+      redirect_to root_path
+      flash[:error] = "False!"
+    end
+  end
+
 private
   # определяем те параметры, которые можно передавать в метод контроллера create
   def card_params 
