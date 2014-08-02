@@ -1,5 +1,14 @@
 class CardsController < ApplicationController
   
+  # метод before_action добавляет срабатывание метода find_card 
+  # для всех action, кроме указанных в skip_before_action 
+  before_action :find_card
+  skip_before_action :find_card, only: [:new, :create, :index]
+
+  def find_card
+    @card = Card.find(params[:id])
+  end
+
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
     # и не вылетало ошибки на if @cards.errors.any
@@ -22,18 +31,15 @@ class CardsController < ApplicationController
     render 'new' 
    end 
   end
-
-  def show
-    # ищем в базе запись по id и выводим в представлении show
-    @card = Card.find(params[:id]) 
+  
+  # ищем в базе запись по id и выводим в представлении show
+  def show 
   end
 
   def edit
-    @card = Card.find(params[:id])
   end
   
   def update
-    @card = Card.find(params[:id])
     if @card.update(card_params)
       redirect_to @card
     else
@@ -42,17 +48,14 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card = Card.find(params[:id])
     @card.destroy
     redirect_to cards_path 
   end
 
   def review
-    # выбираем карту по id, который принимаем из формы
-    card = Card.find(params[:id])
     # проверка на совпадение методом из модели
-    if card.check_translation(params[:translated_text])
-      card.update(review_date: Date.today + 3) 
+    if @card.check_translation(params[:translated_text])
+      @card.update_review_date(@card)
     else
       flash[:error] = "False!"
     end
