@@ -1,13 +1,4 @@
 class CardsController < ApplicationController
-  
-  # метод before_action добавляет срабатывание метода find_card 
-  # для всех action, кроме указанных в skip_before_action 
-  before_action :find_card
-  skip_before_action :find_card, only: [:new, :create, :index]
-
-  def find_card
-    @card = Card.find(params[:id])
-  end
 
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
@@ -55,7 +46,8 @@ class CardsController < ApplicationController
   def review
     # проверка на совпадение методом из модели
     if @card.check_translation(params[:translated_text])
-      @card.update_review_date(@card)
+      @card.update_review_date
+      flash[:success] = "True! Next card!"
     else
       flash[:error] = "False!"
     end
@@ -66,5 +58,13 @@ private
   # определяем те параметры, которые можно передавать в метод контроллера create
   def card_params 
     params.require(:card).permit(:original_text, :translated_text, :review_date)
+  end
+
+  # метод before_action добавляет срабатывание метода find_card 
+  # для всех action, кроме указанных в skip_before_action 
+  before_action :find_card, except: [:new, :create, :index]
+
+  def find_card
+    @card = Card.find(params[:id])
   end 
 end
