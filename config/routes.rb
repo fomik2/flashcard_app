@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+
   resources :cards do
     member do
       post 'review'
     end 
   end
-root 'welcome#index'
+  root 'welcome#index'
   
   
 

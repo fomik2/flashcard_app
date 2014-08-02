@@ -51,13 +51,12 @@ class CardsController < ApplicationController
     # выбираем карту по id, который принимаем из формы
     card = Card.find(params[:id])
     # проверка на совпадение методом из модели
-    if card.check_translate(params[:translated_text])
-      card.update(:review_date => Date.today + 3) 
-      redirect_to root_path
+    if card.check_translation(params[:translated_text])
+      card.update(review_date: Date.today + 3) 
     else
-      redirect_to root_path
       flash[:error] = "False!"
     end
+    redirect_to root_path 
   end
 
 private
