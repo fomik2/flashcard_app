@@ -55,15 +55,15 @@ class CardsController < ApplicationController
   end
 
 private
-  # определяем те параметры, которые можно передавать в метод контроллера create
-  def card_params 
-    params.require(:card).permit(:original_text, :translated_text, :review_date)
-  end
-
   # метод before_action добавляет срабатывание метода find_card 
   # для всех action, кроме указанных в skip_before_action 
   before_action :find_card, except: [:new, :create, :index]
 
+  # определяем те параметры, которые можно передавать в метод контроллера create
+  def card_params 
+    params.require(:card).permit(:original_text, :translated_text, :review_date)
+  end
+  
   def find_card
     @card = Card.find(params[:id])
   end 
