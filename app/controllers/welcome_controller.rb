@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   
   def index
-    @card = Card.where("review_date < ?", Date.today).first
+    @card = Card.review_before(Date.today)
   end
 end
