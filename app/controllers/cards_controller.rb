@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+  # метод before_action добавляет срабатывание метода find_card 
+  before_action :find_card, except: [:new, :create, :index]
   
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
@@ -22,18 +24,15 @@ class CardsController < ApplicationController
     render 'new' 
    end 
   end
-
-  def show
-    # ищем в базе запись по id и выводим в представлении show
-    @card = Card.find(params[:id]) 
+  
+  # ищем в базе запись по id и выводим в представлении show
+  def show 
   end
 
   def edit
-    @card = Card.find(params[:id])
   end
   
   def update
-    @card = Card.find(params[:id])
     if @card.update(card_params)
       redirect_to @card
     else
@@ -42,14 +41,28 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card = Card.find(params[:id])
     @card.destroy
     redirect_to cards_path 
+  end
+
+  def review
+    # проверка на совпадение методом из модели
+    if @card.check_translation(params[:translated_text])
+      @card.update_review_date
+      flash[:success] = "True! Next card!"
+    else
+      flash[:error] = "False!"
+    end
+    redirect_to root_path 
   end
 
 private
   # определяем те параметры, которые можно передавать в метод контроллера create
   def card_params 
     params.require(:card).permit(:original_text, :translated_text, :review_date)
+  end
+  # метод для before_action
+  def find_card
+    @card = Card.find(params[:id])
   end 
 end
