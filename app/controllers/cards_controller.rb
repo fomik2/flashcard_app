@@ -1,5 +1,7 @@
 class CardsController < ApplicationController
-
+  # метод before_action добавляет срабатывание метода find_card 
+  before_action :find_card, except: [:new, :create, :index]
+  
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
     # и не вылетало ошибки на if @cards.errors.any
@@ -55,15 +57,11 @@ class CardsController < ApplicationController
   end
 
 private
-  # метод before_action добавляет срабатывание метода find_card 
-  # для всех action, кроме указанных в skip_before_action 
-  before_action :find_card, except: [:new, :create, :index]
-
   # определяем те параметры, которые можно передавать в метод контроллера create
   def card_params 
     params.require(:card).permit(:original_text, :translated_text, :review_date)
   end
-  
+  # метод для before_action
   def find_card
     @card = Card.find(params[:id])
   end 
