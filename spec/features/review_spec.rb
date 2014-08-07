@@ -1,21 +1,19 @@
 require 'rails_helper'
 
 describe "Index Page" do
-  
-  before(:each) do
-    @card = FactoryGirl.create(:card)
-    DatabaseCleaner.start
-  end
 
   it "shows error messages if translation is wrong" do
+    @card = FactoryGirl.create(:card)
     visit root_path
-    fill_in 'translated_text', with: 'wqww'
+    fill_in 'translated_text', with: 'some text'
     click_on 'Проверить'
     expect(page).to have_content('Неверно!')
   end
 
-  after (:each) do
-  DatabaseCleaner.clean
+  it "check page then object is not created" do
+    visit root_path
+    save_and_open_page
+    expect(page).to have_content('Непросмотренных')
   end
 
 end

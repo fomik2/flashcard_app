@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 describe "New card Page" do
-  
-  before(:each) do
-    @card = FactoryGirl.create(:card)
-  end
 
   it "can add new card" do
     visit new_card_path
