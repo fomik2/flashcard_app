@@ -1,24 +1,12 @@
 require 'rails_helper'
 
-describe "Index Page" do
+describe "New card Page" do
   
   before(:each) do
     @card = FactoryGirl.create(:card)
   end
 
-  it "should have content 'Именно'" do
-    visit '/'
-    expect(page).to have_content('Именно')
-  end
-
-  it "does test fail translate from user" do
-    visit root_path
-    fill_in 'translated_text', with: 'wqww'
-    click_on 'Проверить'
-    expect(page).to have_content('Неверно!')
-  end
-
-  it "does New page create a new object and add it to database" do
+  it "can add new card" do
     visit new_card_path
     expect(page).to have_content('Add new card')
     fill_in 'card[original_text]', with: 'test'
@@ -29,4 +17,5 @@ describe "Index Page" do
     click_on 'Create Card'
     expect(page).to have_content('test')
   end
+  
 end
