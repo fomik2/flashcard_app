@@ -7,8 +7,17 @@ gem 'rails', '4.1.4'
 gem 'pg'
 # Use RSpec
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0' 
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'factory_girl_rails', '~> 4.0'
 end
+
+group :test do
+  gem 'poltergeist'
+  gem 'database_cleaner'
+  gem 'launchy'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
