@@ -15,6 +15,7 @@ end
 group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'launchy'
 end
 
 # Use SCSS for stylesheets

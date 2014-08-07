@@ -10,9 +10,17 @@ describe "Index Page" do
     expect(page).to have_content('Неверно!')
   end
 
+  it "check true translation" do
+    @card = FactoryGirl.create(:card)
+    visit root_path
+    fill_in 'translated_text', with: 'Микрософт'
+    click_on 'Проверить'
+    expect(page).to have_content('Непросмотренных карточек нет')
+
+  end
+
   it "check page then object is not created" do
     visit root_path
-    save_and_open_page
     expect(page).to have_content('Непросмотренных')
   end
 

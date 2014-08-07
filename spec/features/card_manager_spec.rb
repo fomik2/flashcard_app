@@ -4,7 +4,6 @@ describe "New card Page" do
 
   it "can add new card" do
     visit new_card_path
-    expect(page).to have_content('Add new card')
     fill_in 'card[original_text]', with: 'test'
     fill_in 'card[translated_text]', with: 'тест'
     select '2013', from: 'card_review_date_1i'
@@ -13,5 +12,5 @@ describe "New card Page" do
     click_on 'Create Card'
     expect(page).to have_content('test')
   end
-  
+
 end
