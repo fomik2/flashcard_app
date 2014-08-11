@@ -12,9 +12,9 @@
         <td><%= f.original_text %> </td>
         <td><%= f.translated_text %> </td>
         <td><%= f.review_date.strftime("%d/%m/%Y")  %> </td>
-        <td><%= link_to 'Показать', card_path(f) %></td>
-        <td><%= link_to 'Редактировать', edit_card_path(f) %></td>
-        <td><%= link_to 'Удалить', card_path(f), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= link_to 'Показать', user_card_path(f) %></td>
+        <td><%= link_to 'Редактировать', edit_user_card_path(f) %></td>
+        <td><%= link_to 'Удалить', user_card_path(f), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>
     <% end %>
   </table>

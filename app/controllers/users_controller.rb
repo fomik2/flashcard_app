@@ -8,14 +8,17 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-    	redirect_to root_path
+    	#redirect_to user_welcome_path
     else
       render 'new'
     end
   end
 
   def index
-    
+    if logged_in?
+      @user_id = current_user.id
+      redirect_to "/users/#{@user_id}/welcome/"
+    end
   end
 
 private
