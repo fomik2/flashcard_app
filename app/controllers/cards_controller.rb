@@ -14,7 +14,7 @@ class CardsController < ApplicationController
   
   def create
    # создаем запись из тех параметров, которые разрешили передавать
-   @card = Card.new(card_params) 
+   @card = User.new(card_params) 
    # сохраняем запись в базу
    if @card.save 
      # идем в представление show

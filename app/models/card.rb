@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
-  validates :original_text, :translated_text, :review_date, presence: true
+  belongs_to :user
+  validates :original_text, :translated_text, :review_date, :user_id, presence: true
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   scope :review_before, ->(date) { where("review_date < ?", date).order('RANDOM()') }
   
