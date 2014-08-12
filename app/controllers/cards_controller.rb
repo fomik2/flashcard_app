@@ -5,7 +5,6 @@ class CardsController < ApplicationController
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
     # и не вылетало ошибки на if @cards.errors.any
-    #@card_new = Card.new 
     @card = current_user.cards.new
   end                 
   
