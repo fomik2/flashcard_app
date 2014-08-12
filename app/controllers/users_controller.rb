@@ -5,6 +5,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -19,6 +23,14 @@ class UsersController < ApplicationController
     if logged_in?
       @user_id = current_user.id
       redirect_to "/users/#{@user_id}/welcome/"
+    end
+  end
+  
+  def update
+    if current_user.update(user_params)
+      redirect_to root_path
+    else
+      render 'edit'
     end
   end
 
