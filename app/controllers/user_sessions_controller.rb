@@ -5,6 +5,14 @@ class UserSessionsController < ApplicationController
     @user = User.new
   end
   
+  def index
+    if logged_in?
+      redirect_to user_welcome_path
+    else
+      redirect_to users_path
+    end
+  end
+
   def edit
     @user = User.find(params[:id])
   end

@@ -3,7 +3,7 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, :review_date, :user_id, presence: true
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   
-  scope :review_before, ->(date, user_id) { where("review_date < ? and user_id == ?", date, user_id).order('RANDOM()') }
+  scope :review_before, ->(date, user_id) { where("review_date < ? and user_id = ?", date, user_id).order('RANDOM()') }
   
   def check_translation(translation)
     translation == translated_text

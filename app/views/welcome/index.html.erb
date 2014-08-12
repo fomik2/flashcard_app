@@ -3,7 +3,7 @@
     <header class="clearfix">
       <h1>Флэшкарточкер</h1>
       <ul class="navigation-links">
-        <li><%= link_to "Все карточки", user_cards_path %></a></li>
+        <li><%= link_to "Все карточки", user_cards_path(current_user) %></a></li>
         <li><%= link_to "Добавить карточку", new_user_card_path %></a></li>
       </ul>
     </header>
@@ -19,7 +19,7 @@
           <% else %>
             <%= @card.original_text %>
             <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
-            <%= form_tag review_user_card_path(@card) do %>
+            <%= form_tag review_user_card_path(current_user, @card) do %>
               <%= label_tag :label, "Введите перевод:" %>
               <%= text_field_tag :translated_text %>
               <%= submit_tag "Проверить" %>
