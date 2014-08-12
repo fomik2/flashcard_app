@@ -15,7 +15,8 @@
 /config/*.yml
 /test/*
 *.*~
-*.coffee
+*~
+*.js.coffee
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
