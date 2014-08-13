@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'users_helper'
 
 describe "New card Page" do
 
@@ -7,7 +6,7 @@ describe "New card Page" do
     sign_in
   end
 
-  it "can user login" do
+  it "can login user" do
     expect(page).to have_content('Login successful')
   end
 

@@ -1,6 +1,6 @@
 
-  def sign_in 
-    FactoryGirl.create(:user)
+  def sign_in
+    @user = FactoryGirl.create(:user)
     visit root_path
     click_link 'Войти'
     fill_in 'email', with: 'test@mail.ru'

@@ -17,17 +17,10 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
-  def index
-    #Если пользователь залогинен, то открывает страницу приветствия
-    if logged_in?
-      @user_id = current_user.id
-      redirect_to "/users/#{@user_id}/welcome/"
-    end
-  end
   
   def update
-    if current_user.update(user_params)
+    @user = current_user
+    if @user.update(user_params)
       redirect_to root_path
     else
       render 'edit'
