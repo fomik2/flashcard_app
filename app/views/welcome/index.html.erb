@@ -23,9 +23,8 @@
               <%= text_field_tag :translated_text %>
               <%= submit_tag "Проверить" %>
             <% end %>
-            <% flash.each do |key, value| %>
-              <span class="<%= key %>"><%= value %></span>
-            <% end %>
+            <span class="error"><%= flash[:error] %></span>
+            <span class="success"><%= flash[:success] %></span>
           <% end %>
         </p>
       
