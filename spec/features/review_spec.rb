@@ -3,7 +3,11 @@ require 'rails_helper'
 describe "Index Page" do
  
   before(:each) do
-    sign_in
+    sign_in('test@mail.ru', '12345')
+  end
+  
+  it "can login user" do
+    expect(page).to have_content('Login successful')
   end
 
   it "check behavior then translation is wrong" do
