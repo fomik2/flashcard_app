@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body><section id="container">
- <div id="nav">
+  <div id="nav">
     <% if current_user %>
       <%= link_to "Редактировать профиль", edit_user_path(current_user.id) %>
       <%= link_to "Выйти", logout_path, method: :destroy %>
