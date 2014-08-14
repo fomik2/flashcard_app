@@ -3,8 +3,8 @@ require 'rails_helper'
 describe "Index Page" do
  
   before(:each) do
-    @user = FactoryGirl.create(:user, email: 'test@mail.ru', password: '12345')
-    sign_in('test@mail.ru', '12345')
+    @user = FactoryGirl.create(:user, email: 'test@mail.ru', password: '123456')
+    sign_in('test@mail.ru', '123456')
   end
   
   it "can login user" do
