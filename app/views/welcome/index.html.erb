@@ -23,8 +23,8 @@
               <%= text_field_tag :translated_text %>
               <%= submit_tag "Проверить" %>
             <% end %>
-            <span class="error"><%= flash[:error] %></span>
-            <span class="success"><%= flash[:success] %></span>
+            <span class="error"><%= flash[:false_translation] %></span>
+            <span class="success"><%= flash[:true_translation] %></span>
           <% end %>
         </p>
       

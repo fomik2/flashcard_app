@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "Index Page" do
  
   before(:each) do
+    @user = FactoryGirl.create(:user)
     sign_in('test@mail.ru', '12345')
   end
   

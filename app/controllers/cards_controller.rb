@@ -49,9 +49,9 @@ class CardsController < ApplicationController
     # проверка на совпадение методом из модели
     if @card.check_translation(params[:translated_text])
       @card.update_review_date
-      flash[:success] = "Верно! Следующая карточка!"
+      flash[:true_translation] = "Верно! Следующая карточка!"
     else
-      flash[:error] = "Неверно!"
+      flash[:false_translation] = "Неверно!"
     end
     redirect_to root_path 
   end
