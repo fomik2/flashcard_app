@@ -23,11 +23,12 @@
               <%= text_field_tag :translated_text %>
               <%= submit_tag "Проверить" %>
             <% end %>
-            <span class="error"><%= flash[:false_translation] %></span>
-            <span class="success"><%= flash[:true_translation] %></span>
+            <% if flash[:translation_status] == 'false' %>
+              <span class="error">Неверно!</span> 
+            <% else %>
+              <span class="success">Верно! Следующая карточка</span>
+            <% end %> 
           <% end %>
-        </p>
-      
+        </p>  
     </section>
-
   </section>
