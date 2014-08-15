@@ -4,13 +4,13 @@
     this article from being saved:</h2>
     <ul>
       <% @card.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
+        <li><%= msg %></li>
       <% end %>
      </ul>
   </div>
-   </br>
+  </br>
 <% end %>
-<%= simple_form_for @card do |f| %>
+<%= simple_form_for([current_user, @card]) do |f| %>
   <%= f.input :original_text, label: 'Original Text'  %>
   <%= f.input :translated_text, label: 'Translated Text' %>
   <%= f.input :review_date, label: 'Дата просмотра' %>

@@ -5,20 +5,20 @@ class CardsController < ApplicationController
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
     # и не вылетало ошибки на if @cards.errors.any
-    @card = Card.new 
-  end                 
+    @card = current_user.cards.new
+  end
   
   def index
-   @cards = Card.all
+   @cards = current_user.cards.all
   end
   
   def create
    # создаем запись из тех параметров, которые разрешили передавать
-   @card = Card.new(card_params) 
+   @card = current_user.cards.new(card_params) 
    # сохраняем запись в базу
    if @card.save 
      # идем в представление show
-     redirect_to @card 
+     redirect_to user_card_path(current_user, @card)
    else
     # если не сработало, то перегружаем представление
     render 'new' 
@@ -34,7 +34,7 @@ class CardsController < ApplicationController
   
   def update
     if @card.update(card_params)
-      redirect_to @card
+      redirect_to user_card_path(current_user, @card)
     else
       render 'edit'
     end
@@ -42,18 +42,19 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to cards_path 
+    redirect_to user_cards_path 
   end
 
   def review
+
     # проверка на совпадение методом из модели
     if @card.check_translation(params[:translated_text])
       @card.update_review_date
-      flash[:success] = "Верно! Следующая карточка!"
+      flash[:translation_status] = 'true'
     else
-      flash[:error] = "Неверно!"
+      flash[:translation_status] = 'false'
     end
-    redirect_to root_path 
+    redirect_to root_path
   end
 
 private
@@ -63,6 +64,6 @@ private
   end
   # метод для before_action
   def find_card
-    @card = Card.find(params[:id])
+    @card = current_user.cards.find(params[:id])
   end 
 end

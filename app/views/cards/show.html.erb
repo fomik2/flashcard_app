@@ -1,5 +1,5 @@
 <section id="container">
-  <h1>Card number <%= @card.id %> </h1>
+  <h1>This is <%= "Card№ #{@card.id}" %> </h1>
   <table border="1" cellpadding="8">
     <tr>
       <th>Original Text</th>
@@ -14,5 +14,5 @@
   </table>
   <br>
   <%= link_to "Home", root_path %>
-  | <%= link_to 'Edit', edit_card_path(@card) %>
+  | <%= link_to 'Edit', edit_user_card_path(current_user, @card) %>
  </section>

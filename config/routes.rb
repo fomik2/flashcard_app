@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
-  resources :cards do
-    member do
-      post 'review'
-    end 
+  root :to => 'welcome#logged_or_not'
+  resources :user_sessions
+  resources :users do
+    resources :cards do
+      member do
+        post 'review'
+      end
+    end
   end
-  root 'welcome#index'
+  get 'welcome' => 'welcome#index'
+  get 'login' => 'user_sessions#new'
+  post 'logout' => 'user_sessions#destroy'
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
