@@ -1,5 +1,6 @@
 <section id="container">
   <h1>This is <%= "Card№ #{@card.id}" %> </h1>
+  <%= image_tag @card.picture.url(:medium) %>
   <table border="1" cellpadding="8">
     <tr>
       <th>Original Text</th>

@@ -11,13 +11,15 @@
       <p style="font-size: 22px;">
         Первый в мире удобный менеджер флеш-карточек. Именно так.
       </p>
-        <p style="font-size: 16px; padding: 20px; color:#3366FF;">
+        
           <!-- Если карточки есть, то выводим форму, если нет, то ошибку -->
           <% if @card.nil? %>
             <span class="error">Непросмотренных карточек нет</span>
           <% else %>
-            <%= @card.original_text %>
-            <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
+            <br/><%= image_tag @card.picture.url(:medium) %>
+            <p style="font-size: 16px; padding: 20px; color:#3366FF;">
+              <%= @card.original_text %>
+            </p> <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
             <%= form_tag review_user_card_path(current_user, @card) do %>
               <%= label_tag :label, "Введите перевод:" %>
               <%= text_field_tag :translated_text %>
@@ -28,7 +30,6 @@
             <% elsif flash[:translation_status] == 'true' %>
               <span class="success">Верно! Следующая карточка</span>
             <% end %> 
-          <% end %>
-        </p>  
+          <% end %> 
     </section>
   </section>
