@@ -14,7 +14,7 @@
 #Ignore this
 /config/*.yml
 /test/*
-/public/system/card/*
+/public/system/*
 *.*~
 *~
 

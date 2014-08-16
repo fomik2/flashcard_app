@@ -13,11 +13,10 @@
       </p>
         
           <!-- Если карточки есть, то выводим форму, если нет, то ошибку -->
-          <% if @card.nil? %>
-            <span class="error">Непросмотренных карточек нет</span>
-          <% else %>
-            <br/><%= image_tag @card.picture.url(:medium) %>
-            <p style="font-size: 16px; padding: 20px; color:#3366FF;">
+          <% if @card %>
+            <br/>
+            <%= image_tag @card.picture.url(:medium) %>
+            <p id='index-form'>
               <%= @card.original_text %>
             </p> <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
             <%= form_tag review_user_card_path(current_user, @card) do %>
@@ -30,6 +29,8 @@
             <% elsif flash[:translation_status] == 'true' %>
               <span class="success">Верно! Следующая карточка</span>
             <% end %> 
+          <% else %>
+            <span class="error">Непросмотренных карточек нет</span>
           <% end %> 
     </section>
   </section>
