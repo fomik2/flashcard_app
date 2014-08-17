@@ -18,6 +18,11 @@ group :test do
   gem 'launchy'
 end
 
+#Gem for store attached files in ASW S3
+gem "aws-sdk", "~> 1.5.7"
+#Add Paperclip - Easy file attachment library
+gem "paperclip", "~> 4.1"
+#Add Sorcery - Magical Authentication for Rails 3 and 4
 gem 'sorcery'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

@@ -11,6 +11,7 @@
   </br>
 <% end %>
 <%= simple_form_for([current_user, @card]) do |f| %>
+  <%= f.input :picture, label: 'Include Picture' %>
   <%= f.input :original_text, label: 'Original Text'  %>
   <%= f.input :translated_text, label: 'Translated Text' %>
   <%= f.input :review_date, label: 'Дата просмотра' %>

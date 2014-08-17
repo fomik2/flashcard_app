@@ -8,9 +8,9 @@ describe "New Card Page" do
   end
 
   it "check add card" do
-    FactoryGirl.create(:card, user_id: @user.id)
     visit root_path
     click_on 'Добавить карточку'
+    attach_file('card[picture]', File.join(Rails.root, '/spec/support/images/test.png' ))
     fill_in 'card[original_text]', with: 'test'
     fill_in 'card[translated_text]', with: 'тест'
     select '2013', from: 'card[review_date(1i)]'

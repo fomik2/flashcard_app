@@ -60,7 +60,7 @@ class CardsController < ApplicationController
 private
   # определяем те параметры, которые можно передавать в метод контроллера create
   def card_params 
-    params.require(:card).permit(:original_text, :translated_text, :review_date)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :picture)
   end
   # метод для before_action
   def find_card
