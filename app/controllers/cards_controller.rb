@@ -16,7 +16,7 @@ class CardsController < ApplicationController
    # создаем запись из тех параметров, которые разрешили передавать
    @card = current_user.cards.new(card_params) 
    # сохраняем запись в базу
-   if @card.save 
+   if @card.save
      # идем в представление show
      redirect_to user_card_path(current_user, @card)
    else
@@ -26,7 +26,7 @@ class CardsController < ApplicationController
   end
   
   # ищем в базе запись по id и выводим в представлении show
-  def show 
+  def show
   end
 
   def edit
@@ -46,7 +46,7 @@ class CardsController < ApplicationController
   end
 
   def review
-
+    @category = params[:category]
     # проверка на совпадение методом из модели
     if @card.check_translation(params[:translated_text])
       @card.update_review_date
@@ -54,13 +54,13 @@ class CardsController < ApplicationController
     else
       flash[:translation_status] = 'false'
     end
-    redirect_to root_path
+    redirect_to welcome_path(@category)
   end
 
 private
   # определяем те параметры, которые можно передавать в метод контроллера create
   def card_params 
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :picture)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :picture, :category_id)
   end
   # метод для before_action
   def find_card

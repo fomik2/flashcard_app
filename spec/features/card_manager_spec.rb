@@ -8,6 +8,7 @@ describe "New Card Page" do
   end
 
   it "check add card" do
+    add_new_category
     visit root_path
     click_on 'Добавить карточку'
     attach_file('card[picture]', File.join(Rails.root, '/spec/support/images/test.png' ))
@@ -16,6 +17,7 @@ describe "New Card Page" do
     select '2013', from: 'card[review_date(1i)]'
     select 'February', from: 'card[review_date(2i)]'
     select '12', from: 'card[review_date(3i)]'
+    select 'Test', from: 'card[category_id]'
     click_on 'Create Card'
     expect(page).to have_content('тест')
   end

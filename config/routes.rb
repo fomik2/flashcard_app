@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   root :to => 'welcome#logged_or_not'
   resources :user_sessions
   resources :users do

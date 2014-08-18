@@ -1,0 +1,19 @@
+<% if @category.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@category.errors.count, "error") %> prohibited
+    this category from being saved:</h2>
+    <ul>
+      <% @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+     </ul>
+  </div>
+  </br>
+<% end %>
+<%= simple_form_for @category do |f| %>
+  <%= f.input :name, label: 'Название' %>
+  <%= f.input :about, label: 'Описание'  %>
+  <%= f.button :submit, label: 'Добавить' %>
+<% end %>
+<%= link_to "Home", root_path %>  
+</section>

@@ -5,5 +5,6 @@ FactoryGirl.define do
     original_text "Microsoft"
     translated_text "Микрософт"
     review_date "2013-06-06"
+    category_id "1"
   end
 end

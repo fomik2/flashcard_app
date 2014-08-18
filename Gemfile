@@ -17,7 +17,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
-
+gem "unicode"
 #Gem for store attached files in ASW S3
 gem "aws-sdk", "~> 1.5.7"
 #Add Paperclip - Easy file attachment library

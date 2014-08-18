@@ -6,31 +6,43 @@
         <li><%= link_to "Добавить карточку", new_user_card_path(current_user) %></a></li>
       </ul>
     </header>
-
     <section>
       <p style="font-size: 22px;">
         Первый в мире удобный менеджер флеш-карточек. Именно так.
       </p>
-        
+      <% @category.each do |f| %>
+        <%= link_to f.name + " | ",  welcome_path(f) %>
+      <% end %>
+      <b>
+      <%= link_to "Добавить категорию", new_category_path %>
+      <%= link_to " | Все категории", categories_path %>
+      </b>
           <!-- Если карточки есть, то выводим форму, если нет, то ошибку -->
-          <% if @card %>
-            <br/>
-            <%= image_tag @card.picture.url(:medium) %>
-            <p id='index-form'>
-              <%= @card.original_text %>
-            </p> <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
-            <%= form_tag review_user_card_path(current_user, @card) do %>
-              <%= label_tag :label, "Введите перевод:" %>
-              <%= text_field_tag :translated_text %>
-              <%= submit_tag "Проверить" %>
-            <% end %>
-            <% if flash[:translation_status] == 'false' %>
-              <span class="error">Неверно!</span> 
-            <% elsif flash[:translation_status] == 'true' %>
-              <span class="success">Верно! Следующая карточка</span>
-            <% end %> 
-          <% else %>
-            <span class="error">Непросмотренных карточек нет</span>
-          <% end %> 
+      <% if @card %>
+        <br/>
+        <div id="card_index">
+          <p id="category">Категория: 
+            <%= @card.category.name %>
+          </p>
+          <%= image_tag @card.picture.url(:medium) %> 
+        </div>
+        <p id='index-form'>
+          <%= @card.original_text %></span>
+        </p> 
+        <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
+        <%= form_tag review_user_card_path(current_user, @card) do %>
+          <%= hidden_field_tag :category, @card.category_id %>
+          <%= label_tag :label, "Введите перевод:" %>
+          <%= text_field_tag :translated_text %>
+          <%= submit_tag "Проверить" %>
+        <% end %>
+        <% if flash[:translation_status] == 'false' %>
+          <span class="error">Неверно!</span> 
+        <% elsif flash[:translation_status] == 'true' %>
+          <span class="success">Верно! Следующая карточка</span>
+        <% end %> 
+      <% else %>
+        <span class="error">Непросмотренных карточек нет</span>
+      <% end %> 
     </section>
   </section>

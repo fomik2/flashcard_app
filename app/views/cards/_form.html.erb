@@ -14,6 +14,7 @@
   <%= f.input :picture, label: 'Include Picture' %>
   <%= f.input :original_text, label: 'Original Text'  %>
   <%= f.input :translated_text, label: 'Translated Text' %>
+  <%= f.association :category %>
   <%= f.input :review_date, label: 'Дата просмотра' %>
   <%= f.button :submit %>
 <% end %>

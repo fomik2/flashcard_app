@@ -3,6 +3,7 @@
   <table border="1" cellpadding="8">
     <tr>
       <th>Picture</th>
+      <th>Категория</th>
       <th>Original Text</th>
       <th>Translated Text</th>
       <th>Дата просмора</th>
@@ -11,6 +12,11 @@
     <% @cards.each do |f| %>
       <tr>
         <td><%= image_tag f.picture.url(:thumb) %></td>
+        <% if f.category %>
+          <td><%= f.category.name %> </td>
+        <% else %>
+          <td><%= 'Без категории' %> </td>
+        <% end %>
         <td><%= f.original_text %> </td>
         <td><%= f.translated_text %> </td>
         <td><%= f.review_date.strftime("%d/%m/%Y")  %> </td>

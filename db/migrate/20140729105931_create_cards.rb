@@ -4,7 +4,7 @@ class CreateCards < ActiveRecord::Migration
       t.string :original_text
       t.string :translated_text
       t.date :review_date
-      t.references :user, index: true
+      t.references :user, :category, index: true
       
       t.timestamps
     end

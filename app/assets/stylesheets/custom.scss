@@ -22,6 +22,8 @@ $success_color: #45C545;
 }
 
 .error {
+  display: block;
+  margin-top: 20px;
   color: $error_color;
   font-style: italic;
   padding-left:5px; 
@@ -42,11 +44,23 @@ $success_color: #45C545;
 }
 
 #index-form {
-  font-size: 26px;
-  padding: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 40px;
   color:#3366FF;
+  margin-left: 1.5cm;
 }
 
+#card_index {
+  margin-left: 1cm;
+  margin-bottom: 1cm;
+  margin-top: 1cm;
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1cm;
+  }
+}
 /* MISC */
 
 .clearfix:after {content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;} html[xmlns].clearfix{display:block;} * html .clearfix{height:1%;}

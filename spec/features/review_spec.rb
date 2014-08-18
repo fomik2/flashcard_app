@@ -12,16 +12,20 @@ describe "Index Page" do
   end
 
   it "check behavior then translation is wrong" do
+    add_new_category
     FactoryGirl.create(:card, user_id: @user.id)
     visit root_path
+    click_on 'Test'
     fill_in 'translated_text', with: 'some text'
     click_on 'Проверить'
     expect(page).to have_content('Неверно!')
   end
 
   it "check behavior then translation is true" do
+    add_new_category
     FactoryGirl.create(:card, user_id: @user.id)
     visit root_path
+    click_on 'Test'
     fill_in 'translated_text', with: 'Микрософт'
     click_on 'Проверить'
     expect(page).to have_content('Непросмотренных карточек нет')
