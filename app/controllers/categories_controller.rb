@@ -3,20 +3,20 @@ class CategoriesController < ApplicationController
   before_action :find_category, except: [:new, :create, :index]
   
   def new
-    @category = Category.new
+    @category = current_user.categories.new
   end
   
   def index
-    @categories = Category.all
+    @categories = current_user.categories.all
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = current_user.categories.new(category_params)
     @category.name = @category.name.capitalize
     @category.about = @category.about.capitalize
     if @category.save
       flash[:result] = true
-      redirect_to root_path
+      redirect_to root_path(@category)
     else
       flash[:result] = false
       render 'new'
@@ -42,11 +42,11 @@ class CategoriesController < ApplicationController
 private
   
   def category_params 
-    params.require(:category).permit(:name, :about)
+    params.require(:category).permit(:name, :about, :user_id)
   end
 
   def find_category
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
   end
 
 end
