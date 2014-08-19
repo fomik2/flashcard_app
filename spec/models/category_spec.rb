@@ -7,7 +7,6 @@ require 'rails_helper'
      @param_for_test = Category.all
    end
 
-
   it "check default status of new category" do
      expect(@category.activate).to eq false
    end
@@ -16,6 +15,5 @@ require 'rails_helper'
      @category.set_categories_to_true(@param_for_test)
      expect(@category.activate).to eq true
    end
-
 
  end
