@@ -46,7 +46,6 @@ class CardsController < ApplicationController
   end
 
   def review
-    @category = params[:category]
     # проверка на совпадение методом из модели
     if @card.check_translation(params[:translated_text])
       @card.update_review_date
@@ -54,7 +53,7 @@ class CardsController < ApplicationController
     else
       flash[:translation_status] = 'false'
     end
-    redirect_to welcome_path(@category)
+    redirect_to welcome_path
   end
 
 private

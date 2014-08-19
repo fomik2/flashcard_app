@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :categories
+  resources :categories do
+    member do
+      post 'activate'
+    end
+  end
   root :to => 'welcome#logged_or_not'
   resources :user_sessions
   resources :users do

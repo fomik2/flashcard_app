@@ -1,9 +1,9 @@
- <section id="container">
-   <h1>Добавить новую категорию</h1>
-   <% if flash[:result] == false %>
-     <span class="error">Что-то пошло не так</span> 
-   <% elsif flash[:translation_status] == 'true' %>
-     <span class="success">Категория добавлена</span>
-   <% end %>
-   <%= render 'form' %>
-   
+<section id="container">
+  <h1>Добавить новую категорию</h1>
+  <% if flash[:result] == false %>
+    <span class="error">Что-то пошло не так</span> 
+  <% elsif flash[:translation_status] == 'true' %>
+    <span class="success">Категория добавлена</span>
+  <% end %>
+  <%= render 'form' %>
+</section>

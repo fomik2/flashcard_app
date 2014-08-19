@@ -10,15 +10,11 @@
       <p style="font-size: 22px;">
         Первый в мире удобный менеджер флеш-карточек. Именно так.
       </p>
-      <% @categories.each do |f| %>
-        <%= link_to f.name + " | ",  welcome_path(f) %>
-      <% end %>
       <b>
       <%= link_to "Добавить категорию", new_category_path %>
       <%= link_to " | Все категории", categories_path %>
       </b>
           <!-- Если карточки есть, то выводим форму, если нет, то ошибку -->
-      <% if params[:format] %>
         <% if @card %>
           <br/>
           <div id="card_index">
@@ -33,7 +29,6 @@
         <!-- Строим форму, делаем ссылку на метод review и передаем ему параметром @card -->
           <%= form_tag review_user_card_path(current_user, @card) do %>
           <!-- передаем id текущий категории для того, чтобы после проверки вернуться в неё же -->
-            <%= hidden_field_tag :category, @card.category_id %>
             <%= label_tag :label, "Введите перевод:" %>
             <%= text_field_tag :translated_text %>
             <%= submit_tag "Проверить" %>
@@ -46,6 +41,5 @@
         <% else %>
           <span class="error">Непросмотренных карточек нет</span>
         <% end %> 
-      <% end %>
     </section>
   </section>
