@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  resources :categories do
-    member do
-      post 'activate'
-    end
-  end
+  resources :categories 
   root :to => 'welcome#logged_or_not'
   resources :user_sessions
   resources :users do
@@ -13,6 +9,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  put 'set_current_category' => 'users#set_current_category'
   get 'welcome' => 'welcome#index'
   get 'login' => 'user_sessions#new'
   post 'logout' => 'user_sessions#destroy'

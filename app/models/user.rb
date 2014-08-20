@@ -6,4 +6,9 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
   validates :email, uniqueness: true
+
+  def place_current_cat_id_to_user(current_category)
+    update_attribute('current_category_id', current_category)
+  end
+
 end

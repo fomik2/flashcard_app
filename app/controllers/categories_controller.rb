@@ -12,9 +12,6 @@ class CategoriesController < ApplicationController
 
   def create
     @category = current_user.categories.new(category_params)
-    @category.name = @category.name.capitalize
-    @category.about = @category.about.capitalize
-    @category.activate = false
     if @category.save
       flash[:result] = true
       redirect_to root_path(@category)
@@ -40,13 +37,6 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
   
-  #активирнует/деактивирует колоду
-  def activate
-    @categories = current_user.categories
-    @category.set_categories_to_true(@categories)
-    redirect_to categories_path
-  end
-
 private
   
   def category_params 

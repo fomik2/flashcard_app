@@ -10,13 +10,10 @@
       <tr>
         <td><%= f.name %> </td>
         <td><%= f.about %> </td>
-        <% if f.activate %>
-          <td><%= link_to 'Деативировать', activate_category_path(f), method: :post %></td>
-        <% else %>
-          <td><%= link_to 'Активировать', activate_category_path(f), method: :post %></td>
-        <% end %>
+        <td><%= link_to 'Активировать', set_current_category_path(f), method: :put %></td>
         <td><%= link_to 'Редактировать', edit_category_path(f) %></td>
         <td><%= link_to 'Удалить', category_path(f), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= f.id %> </td>
       </tr>
     <% end %>
   </table>

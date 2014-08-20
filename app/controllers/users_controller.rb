@@ -27,6 +27,12 @@ class UsersController < ApplicationController
     end
   end
 
+  #записывает текущую категорию в поле current_category_id
+  def set_current_category
+    current_user.place_current_cat_id_to_user(params[:format])
+    redirect_to welcome_path
+  end
+
 private
   
   def user_params
