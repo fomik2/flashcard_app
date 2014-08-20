@@ -8,7 +8,7 @@ require 'rails_helper'
    end
 
    it "does check 'place_current_cat_id_to_user method work" do
-     expect(@user.place_current_cat_id_to_user(1)).to be true
+     expect(@user.set_current_category(1)).to be true
    end
 
  end
