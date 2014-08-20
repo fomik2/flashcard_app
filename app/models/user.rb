@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
   validates :email, uniqueness: true
 
-  def set_current_category(current_category)
-    update_attribute('current_category_id', current_category)
+  def set_current_category(current_category_id)
+    update_attribute('current_category_id', current_category_id)
   end
 
 end
