@@ -11,6 +11,5 @@ require 'rails_helper'
      expect(@user.place_current_cat_id_to_user(1)).to be true
    end
 
-   
  end
  
