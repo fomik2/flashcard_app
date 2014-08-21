@@ -2,13 +2,15 @@ class User < ActiveRecord::Base
   has_many :cards
   has_many :categories
   authenticates_with_sorcery!
-  validates :password, length: {minimum: 3}
-  validates :password, confirmation: true
-  validates :password_confirmation, presence: true
-  validates :email, uniqueness: true
+  validates :password, length: { minimum: 3 }, confirmation: true, if: :password_set? 
+  validates :password_confirmation, presence: true, if: :password_set?
 
+  def password_set?
+    @password
+  end
+  
   def set_current_category(current_category_id)
-    update_attribute('current_category_id', current_category_id)
+    update_attributes(current_category_id: current_category_id)
   end
 
 end
