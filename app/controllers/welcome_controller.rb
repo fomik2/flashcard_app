@@ -2,10 +2,9 @@ class WelcomeController < ApplicationController
   skip_before_action :require_login, only: :logged_or_not
 
   def index
-    if category_id = current_user.current_category_id
-      current_category = current_user.categories.find(category_id)
-      @card = current_category.cards.review_before(Date.today).first
-    end  
+    if current_user.current_category
+      @card = current_user.current_category.cards.review_before(Date.today).first
+    end
   end
 
   def logged_or_not

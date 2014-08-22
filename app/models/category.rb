@@ -3,7 +3,7 @@ class Category < ActiveRecord::Base
   
   has_many :cards
   belongs_to :user
-  
+
   before_create :set_default_attributes
 
 private
