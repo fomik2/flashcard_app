@@ -3,7 +3,8 @@ class Category < ActiveRecord::Base
   
   has_many :cards
   belongs_to :user
-
+  
+  #Callback. Перед тем, как добавить новый объект в таблицу меняет его параметры
   before_create :set_default_attributes
 
 private
