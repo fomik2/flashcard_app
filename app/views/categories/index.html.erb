@@ -6,13 +6,13 @@
       <th>Описание</th>
       <th colspan="2"></th>
     <tr>
-    <% @categories.each do |f| %>
+    <% @categories.each do |category| %>
       <tr>
-        <td><%= f.name %> </td>
-        <td><%= f.about %> </td>
-        <td><%= link_to 'Активировать', set_current_category_path(f), method: :put %></td>
-        <td><%= link_to 'Редактировать', edit_category_path(f) %></td>
-        <td><%= link_to 'Удалить', category_path(f), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= category.name %> </td>
+        <td><%= category.about %> </td>
+        <td><%= link_to 'Активировать', set_current_category_path(category_id: category), method: :put %></td>
+        <td><%= link_to 'Редактировать', edit_category_path(category) %></td>
+        <td><%= link_to 'Удалить', category_path(category), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>
     <% end %>
   </table>
