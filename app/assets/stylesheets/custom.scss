@@ -23,7 +23,7 @@ $success_color: #45C545;
 
 .error {
   display: block;
-  margin-top: 20px;
+  margin: 20px;
   color: $error_color;
   font-style: italic;
   padding-left:5px; 
@@ -46,19 +46,17 @@ $success_color: #45C545;
 #index-form {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 40px;
+  margin: 0 0 40px;
   color:#3366FF;
-  margin-left: 1.5cm;
+  margin: 0 0 30px 55px;
 }
 
 #card_index {
-  margin-left: 1cm;
-  margin-bottom: 1cm;
-  margin-top: 1cm;
+  margin: 20px 0px 30px 30px;
   p {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 1cm;
+    margin: 0 0px 30px;
   }
 }
 

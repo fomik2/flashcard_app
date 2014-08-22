@@ -7,4 +7,10 @@ FactoryGirl.define do
     review_date "2013-06-06"
     category_id "1"
   end
+
+  factory :category do
+    name "Test"
+    about "TestCategory"
+  end
+
 end

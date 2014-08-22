@@ -4,11 +4,11 @@ describe "New Card Page" do
  
   before(:each) do
     @user = FactoryGirl.create(:user, email: 'test@mail.ru', password: '123456')
+    FactoryGirl.create(:category, user_id: @user.id)
     sign_in('test@mail.ru', '123456')
   end
 
   it "check add card" do
-    add_new_category
     visit root_path
     click_on 'Добавить карточку'
     attach_file('card[picture]', File.join(Rails.root, '/spec/support/images/test.png' ))

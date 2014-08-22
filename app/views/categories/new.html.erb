@@ -1,9 +1,7 @@
 <section id="container">
   <h1>Добавить новую категорию</h1>
-  <% if flash[:result] == false %>
-    <span class="error">Что-то пошло не так</span> 
-  <% elsif flash[:result] == true %>
-    <span class="success">Категория добавлена</span>
+  <% flash.each do |key, msg| %>
+    <span class="<%= key %>"><%= msg %></span> 
   <% end %>
   <%= render 'form' %>
 </section>

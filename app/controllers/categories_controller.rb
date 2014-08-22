@@ -7,16 +7,16 @@ class CategoriesController < ApplicationController
   end
   
   def index
-    @categories = current_user.categories.all.order('name')
+    @categories = current_user.categories.order('name')
   end
 
   def create
     @category = current_user.categories.new(category_params)
     if @category.save
-      flash[:result] = true
+      flash[:success] = 'Карточка успешно добавлена'
       redirect_to root_path(@category)
     else
-      flash[:result] = false
+      flash[:error] = 'Что-то пошло не так'
       render 'new'
     end 
   end
