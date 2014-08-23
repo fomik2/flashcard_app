@@ -3,12 +3,9 @@ require 'rails_helper'
 describe "Index Page" do
  
   before(:each) do
-    @user = FactoryGirl.create(:user, email: 'test@mail.ru', password: '123456')
+    @user = FactoryGirl.create(:user, email: 'test@mail.ru', password: '123456', current_category_id: 1)
+    FactoryGirl.create(:category, user_id: @user.id)
     sign_in('test@mail.ru', '123456')
-  end
-  
-  it "can login user" do
-    expect(page).to have_content('Login successful')
   end
 
   it "check behavior then translation is wrong" do

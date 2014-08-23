@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   skip_before_action :require_login, only: :logged_or_not
 
   def index
-    @card = current_user.cards.review_before(Date.today).first
+    @card = current_user.pending_cards
   end
 
   def logged_or_not

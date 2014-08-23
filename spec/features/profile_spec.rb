@@ -7,6 +7,10 @@ describe "Edit User Page" do
     sign_in('test@mail.ru', '123456')
   end
   
+  it "can login user" do
+    expect(page).to have_content('Login successful')
+  end
+  
   it "check update method" do
     visit root_path
     click_link 'Редактировать профиль'

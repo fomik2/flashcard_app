@@ -22,6 +22,8 @@ $success_color: #45C545;
 }
 
 .error {
+  display: block;
+  margin: 20px;
   color: $error_color;
   font-style: italic;
   padding-left:5px; 
@@ -33,18 +35,29 @@ $success_color: #45C545;
   padding-left:5px; 
 }
 
-.navigation-links {
-  float: right;
-  li { 
-    display: inline-block;
-    margin: 0 16px;
-  }
+#navigation-links {
+  float: right
 }
 
-#index-form {
-  font-size: 26px;
-  padding: 25px;
-  color:#3366FF;
+#card_index {
+  width: 360px;
+  border-radius: 10px;
+  padding: 20px;
+  -webkit-box-shadow: 3px 3px 12px 0px rgba(50, 50, 50, 0.48);
+  -moz-box-shadow:    3px 3px 12px 0px rgba(50, 50, 50, 0.48);
+  box-shadow:         3px 3px 12px 0px rgba(50, 50, 50, 0.48);
+  margin: 40px 0px 45px 30px;
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0px 30px;
+  }
+  #index-form {
+    font-size: 20px;
+    font-weight: bold;
+    color:#3366FF;
+    margin: 25px 0 30px 0px;
+  }
 }
 
 /* MISC */
