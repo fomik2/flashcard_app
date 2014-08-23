@@ -8,7 +8,15 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 3 }, confirmation: true, if: :password_set? 
   validates :password_confirmation, presence: true, if: :password_set?
   validates :email, uniqueness: true
-
+  
+  def pending_cards
+    if current_category
+      current_category.cards.review_before(Date.today).first
+    else
+      cards.review_before(Date.today).first
+    end
+  end
+  
   def password_set?
     @password
   end
