@@ -35,41 +35,31 @@ $success_color: #45C545;
   padding-left:5px; 
 }
 
-.navigation-links {
-  float: right;
-  li { 
-    display: inline-block;
-    margin: 0 16px;
-  }
-}
-
-#index-form {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0 0 40px;
-  color:#3366FF;
-  margin: 0 0 30px 55px;
+#navigation-links {
+  float: right
 }
 
 #card_index {
-  margin: 20px 0px 30px 30px;
+  width: 360px;
+  border-radius: 10px;
+  padding: 20px;
+  -webkit-box-shadow: 3px 3px 12px 0px rgba(50, 50, 50, 0.48);
+  -moz-box-shadow:    3px 3px 12px 0px rgba(50, 50, 50, 0.48);
+  box-shadow:         3px 3px 12px 0px rgba(50, 50, 50, 0.48);
+  margin: 40px 0px 45px 30px;
   p {
     font-size: 16px;
     font-weight: bold;
     margin: 0 0px 30px;
   }
-}
-
-#category_edit {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  > li {
-    display: inline;
+  #index-form {
+    font-size: 20px;
+    font-weight: bold;
+    color:#3366FF;
+    margin: 25px 0 30px 0px;
   }
-
-
 }
+
 /* MISC */
 
 .clearfix:after {content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;} html[xmlns].clearfix{display:block;} * html .clearfix{height:1%;}
