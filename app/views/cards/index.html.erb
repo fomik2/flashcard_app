@@ -9,20 +9,20 @@
       <th>Дата просмора</th>
       <th colspan="6"></th>
     <tr>
-    <% @cards.each do |f| %>
+    <% @cards.each do |card| %>
       <tr>
         <td><%= image_tag f.picture.url(:thumb) %></td>
-        <% if f.category %>
-          <td><%= f.category.name %> </td>
+        <% if card.category %>
+          <td><%= card.category.name %> </td>
         <% else %>
           <td><%= 'Без категории' %> </td>
         <% end %>
-        <td><%= f.original_text %> </td>
-        <td><%= f.translated_text %> </td>
-        <td><%= f.review_date.strftime("%d/%m/%Y")  %> </td>
-        <td><%= link_to 'Показать', user_card_path(current_user, f) %></td>
-        <td><%= link_to 'Редактировать', edit_user_card_path(current_user, f) %></td>
-        <td><%= link_to 'Удалить', user_card_path(current_user, f), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= card.original_text %> </td>
+        <td><%= card.translated_text %> </td>
+        <td><%= card.review_date.strftime("%d/%m/%Y")  %> </td>
+        <td><%= link_to 'Показать', user_card_path(current_user, card) %></td>
+        <td><%= link_to 'Редактировать', edit_user_card_path(current_user, card) %></td>
+        <td><%= link_to 'Удалить', user_card_path(current_user, card), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>
     <% end %>
   </table>
