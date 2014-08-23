@@ -4,6 +4,8 @@ class WelcomeController < ApplicationController
   def index
     if current_user.current_category
       @card = current_user.current_category.cards.review_before(Date.today).first
+    else
+      @card = current_user.cards.review_before(Date.today).first
     end
   end
 
