@@ -63,6 +63,13 @@ $success_color: #45C545;
   }
 }
 
+#all-card-table {
+  td {
+   vertical-align: middle;
+
+  }
+
+}
 /* MISC */
 
 .clearfix:after {content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;} html[xmlns].clearfix{display:block;} * html .clearfix{height:1%;}
