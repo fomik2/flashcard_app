@@ -14,7 +14,11 @@
   <%= f.input :picture, label: 'Include Picture' %>
   <%= f.input :original_text, label: 'Original Text'  %>
   <%= f.input :translated_text, label: 'Translated Text' %>
-  <%= f.association :category %>
+  <% if params[:category_name] %>
+    <%= f.association :category, collection: current_user.categories, default: params[:category_name] %>
+  <% else %>
+    <%= f.association :category, collection: current_user.categories %>
+  <% end %>
   <%= f.input :review_date, label: 'Дата просмотра' %>
   <%= f.button :submit %>
 <% end %>
