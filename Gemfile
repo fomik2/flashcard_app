@@ -17,6 +17,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+gem 'rails_12factor', group: :production
 gem "unicode"
 #Gem for store attached files in ASW S3
 gem "aws-sdk", "~> 1.5.7"
