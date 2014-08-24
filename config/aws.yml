@@ -1,0 +1,14 @@
+development:
+  access_key_id: AKIAJHP3NUXR3LMQZDWQ
+  secret_access_key: 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
+  bucket: my_rails_app
+
+production:
+  access_key_id: AKIAJHP3NUXR3LMQZDWQ
+  secret_access_key: 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
+  bucket: my_rails_app
+
+test:
+  access_key_id: AKIAJHP3NUXR3LMQZDWQ
+  secret_access_key: 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
+  bucket: my_rails_app
