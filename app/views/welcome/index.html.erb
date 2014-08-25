@@ -18,6 +18,10 @@
         <p id="category">
           Категория: 
           <%= @card.category.name %>
+          <br/>
+          
+         <%= " " + @card.num_of_right.to_s + " " +  @card.num_of_wrong.to_s + " " + @card.review_date.to_s %> 
+
         </p>
         <p id="card_img_p">
         <%= image_tag @card.picture.url(:medium) %> 
