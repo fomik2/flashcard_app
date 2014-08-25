@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20140825090701) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.integer  "category_id"
-    t.integer  "num_of_right"
-    t.integer  "num_of_wrong"
+    t.integer  "num_of_right",         default: 0
+    t.integer  "num_of_wrong",         default: 0
   end
 
   create_table "categories", force: true do |t|

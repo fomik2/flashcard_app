@@ -13,7 +13,6 @@ class Card < ActiveRecord::Base
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
-  before_create :set_default_attributes 
 
   def checkTranslation(translation)
     if translation == translated_text
@@ -54,13 +53,6 @@ class Card < ActiveRecord::Base
       update_attributes(num_of_right: 1, num_of_wrong: 0)
       update_attributes(review_date: Date.today.next)
     end
-  end
-
-private
-
-  def set_default_attributes
-    self.num_of_wrong = 0
-    self.num_of_right = 0
   end
 
 end
