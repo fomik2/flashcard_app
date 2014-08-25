@@ -17,12 +17,16 @@ class Card < ActiveRecord::Base
 
   def checkTranslation(translation)
     if translation == translated_text
-      update_attribute('num_of_right', num_of_right.next)
+      update_attributes(num_of_right: num_of_right.next)
+      if num_of_right >= 6
+        update_attributes(num_of_right: 1 + rand(5))
+      end
       return true
     else
-      update_attribute('num_of_wrong', num_of_wrong.next)
+      update_attributes(num_of_wrong: num_of_wrong.next)
       return false
     end
+
   end
 
   def thenTranslationTrue
