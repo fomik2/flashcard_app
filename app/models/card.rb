@@ -17,9 +17,6 @@ class Card < ActiveRecord::Base
   def checkTranslation(translation)
     if translation == translated_text
       update_attributes(num_of_right: num_of_right.next)
-      if num_of_right >= 6
-        update_attributes(num_of_right: 1 + rand(5))
-      end
       return true
     else
       update_attributes(num_of_wrong: num_of_wrong.next)
@@ -43,8 +40,11 @@ class Card < ActiveRecord::Base
         days = Date.today + 14
       when 5
         days = days.next_month
+      else
+        ifNumOfRightGreaterThanFive(review_date, num_of_right)
+        return 
     end
-    update_attribute('num_of_wrong', 0)
+    update_attributes(num_of_wrong: 0)
     update_attributes(review_date: days) 
   end
   
@@ -53,6 +53,10 @@ class Card < ActiveRecord::Base
       update_attributes(num_of_right: 1, num_of_wrong: 0)
       update_attributes(review_date: Date.today.next)
     end
+  end
+
+  def ifNumOfRightGreaterThanFive(review_date, num_of_right)
+    update_attributes(review_date: review_date.next_month + num_of_right)  
   end
 
 end
