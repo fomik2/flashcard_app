@@ -47,11 +47,9 @@ class CardsController < ApplicationController
 
   def review
     # проверка на совпадение методом из модели
-    if @card.checkTranslation(params[:translated_text])
-      @card.thenTranslationTrue
+    if @card.check_translation(params[:translated_text])
       flash[:translation_status] = 'true'
     else
-      @card.thenTranslationFalse
       flash[:translation_status] = 'false'
     end
     redirect_to welcome_path

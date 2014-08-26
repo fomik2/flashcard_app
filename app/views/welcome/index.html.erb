@@ -7,7 +7,6 @@
       </p>
     </div>
     <ul class="nav nav-pills" >
-      
       <li><%= link_to "Добавить категорию", new_category_path %></a></li>
       <li><%= link_to "Все категории", categories_path %></a></li>
       <li id="navigation-links"><%= link_to "Все карточки", user_cards_path(current_user) %></a></li>
@@ -26,7 +25,7 @@
           <%= @card.original_text %>
         </p>
       </div>
-      <%= form_tag(review_user_card_path(current_user, @card), class: "form-horizontal")  do %>
+      <%= form_tag(review_user_card_path(current_user, @card), class: "form-horizontal", id: "form_translate")  do %>
         <%= label_tag :label, "Введите перевод:" %>
         <%= text_field_tag :translated_text %>
         <%= submit_tag "Проверить", class: "btn btn-primary" %>
@@ -38,6 +37,10 @@
       <% end %> 
     <% else %>
       <span class="error">Непросмотренных карточек нет</span>
-    <% end %> 
+    <% end %>
+  <div id="footer">
+    <div class="container">
+    <p id="credit">My Ruby On Rails project 2014</p>
+  </div> 
   </section>
 </section>
