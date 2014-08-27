@@ -31,12 +31,12 @@ require 'rails_helper'
    end
 
    it "does check 'check_translation (num_of_right changer)' method work" do
-     @card_for_check = Card.new({ original_text: "dog",
-                                 translated_text: "собака",
-                                 review_date: "2014-08-03",
-                                 num_of_wrong: 2,
-                                 num_of_right: 4})
-     expect {
+    @card_for_check = Card.new({  original_text: "dog",
+                                  translated_text: "собака",
+                                  review_date: "2014-08-03",
+                                  num_of_wrong: 2, 
+                                  num_of_right: 4 })
+    expect {
        @card_for_check.check_translation("собака")
      }.to change(@card_for_check, :num_of_right).to(5)
    end
@@ -71,7 +71,7 @@ require 'rails_helper'
                                  num_of_right: 4})
      expect {
        @card_for_check.increase_incorrect_answer_counter 
-     }.to change(@card_for_check, :review_date).to(Date.today.next_day)
+     }.to change(@card_for_check, :review_date).to(Date.today)
    end
 
  end

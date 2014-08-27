@@ -44,27 +44,24 @@ class Card < ActiveRecord::Base
     when 4
       days = Date.today + 14.days
     when 5
-      days = Day.today.next_month
+      days = Date.today.next_month
+    else
+      days = review_date.next_month + num_of_right
     end
-    update_attributes(num_of_wrong: 0, review_date: days)
+    update_attributes(review_date: days)
   end
 
   def increase_correct_answer_counter
     increment(:num_of_right)
-    if num_of_right < 5
-      update_review_date
-    else
-     advanced_update_review_date 
-    end
+    update_review_date
   end
   
   def increase_incorrect_answer_counter
     increment(:num_of_wrong)
     if num_of_wrong >= 3
-      update_attributes(num_of_right: 0, 
-                        num_of_wrong: 0, 
-                        review_date: Date.today.next_day )                
+      update_attributes(num_of_right: 0, num_of_wrong: 0)                                   
     end
+    update_review_date
   end
 
   def advanced_update_review_date
