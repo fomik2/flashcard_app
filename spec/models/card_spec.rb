@@ -60,7 +60,7 @@ require 'rails_helper'
                                   num_of_right: 6})
      expect {
        @card_for_check.increase_incorrect_answer_counter 
-     }.to change( @card_for_check, :num_of_right).to(1)
+     }.to change( @card_for_check, :num_of_right).to(0)
    end
 
    it "does check 'increase_incorrect_answer_counter (change_review_date)' method work" do

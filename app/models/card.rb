@@ -31,38 +31,43 @@ class Card < ActiveRecord::Base
     end
   end
 
+  def update_review_date
+    case num_of_right
+    when 0
+      days = Date.today
+    when 1
+      days = Date.today + 1.day
+    when 2
+      days = Date.today + 3.days
+    when 3
+      days = Date.today + 7.days
+    when 4
+      days = Date.today + 14.days
+    when 5
+      days = Day.today.next_month
+    end
+    update_attributes(num_of_wrong: 0, review_date: days)
+  end
+
   def increase_correct_answer_counter
     increment(:num_of_right)
     if num_of_right < 5
-      case num_of_right
-      when 0
-        days = Date.today
-      when 1
-        days = Date.today + 1.day
-      when 2
-        days = Date.today + 3.days
-      when 3
-        days = Date.today + 7.days
-      when 4
-        days = Date.today + 14.days
-      when 5
-        days = Day.today.next_month
-      end
-      update_attributes(num_of_wrong: 0, review_date: days)
-    else
       update_review_date
-    end 
+    else
+     advanced_update_review_date 
+    end
   end
   
   def increase_incorrect_answer_counter
     increment(:num_of_wrong)
     if num_of_wrong >= 3
-      update_attributes(num_of_right: 0, num_of_wrong: 0)
-      increase_correct_answer_counter
+      update_attributes(num_of_right: 0, 
+                        num_of_wrong: 0, 
+                        review_date: Date.today.next_day )                
     end
   end
 
-  def update_review_date
+  def advanced_update_review_date
     update_attributes(review_date: review_date.next_month + num_of_right)  
   end
 
