@@ -33,13 +33,12 @@ class Card < ActiveRecord::Base
 
   def increase_correct_answer_counter
     increment(:num_of_right)
-    days = Date.today
     if num_of_right < 5
       case num_of_right
       when 0
         days = Date.today
       when 1
-        days = days.next_day
+        days = Date.today + 1.day
       when 2
         days = Date.today + 3.days
       when 3
@@ -47,7 +46,7 @@ class Card < ActiveRecord::Base
       when 4
         days = Date.today + 14.days
       when 5
-        days = days.next_month
+        days = Day.today.next_month
       end
       update_attributes(num_of_wrong: 0, review_date: days)
     else
