@@ -1,5 +1,6 @@
+require 'fcmanageraws' #модуль для динамической загрузки названия bucket-а S3
 class Card < ActiveRecord::Base
-  require 'fcmanageraws' #модуль для динамической загрузки названия bucket-а S3
+  
   
   belongs_to :user
   belongs_to :category
@@ -15,9 +16,8 @@ class Card < ActiveRecord::Base
             :translated_text, 
             :review_date, 
             :user_id, 
-            :category_id,
-            presence: true
-  
+            :category_id, presence: true
+            
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
   
@@ -50,7 +50,7 @@ class Card < ActiveRecord::Base
       end
       update_attributes(num_of_wrong: 0, review_date: days)
     else
-      update_review_date(review_date, num_of_right)
+      update_review_date
     end 
   end
   
@@ -62,7 +62,7 @@ class Card < ActiveRecord::Base
     end
   end
 
-  def update_review_date(review_date, num_of_right)
+  def update_review_date
     update_attributes(review_date: review_date.next_month + num_of_right)  
   end
 
