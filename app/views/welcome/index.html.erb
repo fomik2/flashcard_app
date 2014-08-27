@@ -9,7 +9,7 @@
     <ul class="nav nav-pills" >
       <li><%= link_to "Добавить категорию", new_category_path %></a></li>
       <li><%= link_to "Все категории", categories_path %></a></li>
-      <li id="navigation-links"><%= link_to "Все карточки", user_cards_path(current_user) %></a></li>
+      <li id="navigation_links"><%= link_to "Все карточки", user_cards_path(current_user) %></a></li>
     </ul>
         <!-- Если карточки есть, то выводим форму -->
     <% if @card %>
@@ -21,7 +21,7 @@
         <p id="card_img_p">
         <%= image_tag @card.picture.url(:medium) %> 
         </p>
-        <p id='index-form'>
+        <p id='index_form'>
           <%= @card.original_text %>
         </p>
       </div>

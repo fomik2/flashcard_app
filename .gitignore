@@ -12,6 +12,7 @@
 /db/*.sqlite3-journal
 
 #Ignore this
+.env
 /config/*.yml
 /public/system/*
 /test/*
