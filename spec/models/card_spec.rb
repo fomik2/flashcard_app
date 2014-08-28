@@ -3,11 +3,11 @@ require 'rails_helper'
  describe Card do
 
    before :each do
-     @card = Card.new({original_text: "dog", 
-      translated_text: "собака", 
-      review_date: "2014-08-03", 
-       num_of_wrong: 0,
-       num_of_right: 0})
+     @card = Card.new({ original_text: "dog", 
+                        translated_text: "собака", 
+                        review_date: "2014-08-03", 
+                        num_of_wrong: 0,
+                        num_of_right: 0})
    end
 
    it "does check 'check_translation' method work" do
@@ -15,11 +15,12 @@ require 'rails_helper'
    end
 
    it "does check 'check_translation' method work" do
-     expect{ @card.check_translation("собака") }.to change(
-       @card, :review_date).to(Date.today.next)
+     expect{ 
+      @card.check_translation("собака")
+    }.to change(@card, :review_date).to(Date.today.next)
    end
 
-    it "does check 'check_translation (review_date changer check)' method work" do
+    it "does check 'check_translation' method work (review_date value changer)" do
      @card_for_check = Card.new({ original_text: "dog",
                                   translated_text: "собака",
                                   review_date: "2014-08-03",
@@ -30,7 +31,7 @@ require 'rails_helper'
      }.to change(@card_for_check, :review_date).to(Date.today + 14)
    end
 
-   it "does check 'check_translation (num_of_right changer)' method work" do
+   it "does check 'check_translation' method work (increment num_of_right value)" do
     @card_for_check = Card.new({  original_text: "dog",
                                   translated_text: "собака",
                                   review_date: "2014-08-03",
@@ -41,7 +42,7 @@ require 'rails_helper'
      }.to change(@card_for_check, :num_of_right).to(5)
    end
 
-   it "does check 'increase_correct_answer_counter' method work" do
+   it "does check 'increase_correct_answer_counter' method work (review_date value change)" do
      @card_for_check = Card.new({ original_text: "dog",
                                   translated_text: "собака", 
                                   review_date: "2014-08-03",
@@ -52,7 +53,7 @@ require 'rails_helper'
      }.to change(@card_for_check, :review_date).to(Date.parse("2014-09-10"))
    end
 
-   it "does check 'increase_incorrect_answer_counter (change num_of_right)' method work" do
+   it "does check 'increase_incorrect_answer_counter' method work (num_of_right value change)" do
      @card_for_check = Card.new({ original_text: "dog",
                                   translated_text: "собака",
                                   review_date: "2014-08-03",
@@ -63,7 +64,7 @@ require 'rails_helper'
      }.to change( @card_for_check, :num_of_right).to(0)
    end
 
-   it "does check 'increase_incorrect_answer_counter (change_review_date)' method work" do
+   it "does check 'increase_incorrect_answer_counter' method work (review_date value change)" do
      @card_for_check = Card.new({ original_text: "dog",
                                  translated_text: "собака",
                                  review_date: "2014-08-03",

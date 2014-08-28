@@ -11,7 +11,9 @@ describe "New Card Page" do
   it "check add card" do
     visit root_path
     click_on 'Все категории'
+    
     click_on 'Добавить карточку'
+save_and_open_page
     attach_file('card[picture]', File.join(Rails.root, '/spec/support/images/test.png' ))
     fill_in 'card[original_text]', with: 'test'
     fill_in 'card[translated_text]', with: 'тест'

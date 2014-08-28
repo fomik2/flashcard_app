@@ -63,9 +63,5 @@ class Card < ActiveRecord::Base
     end
     update_review_date
   end
-
-  def advanced_update_review_date
-    update_attributes(review_date: review_date.next_month + num_of_right)  
-  end
-
+  
 end

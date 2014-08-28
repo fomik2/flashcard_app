@@ -10,7 +10,7 @@
       <tr>
         <td><%= category.name %> </td>
         <td><%= category.about %> </td>
-        <td><%= link_to 'Добавить карточку', new_user_card_path(current_user, category_name: category.name) %></td>
+        <td><%= link_to 'Добавить карточку', new_user_card_path(current_user, category_id: category) %></td>
         <td><%= link_to 'Активировать', set_current_category_path(category_id: category), method: :put %></td>
         <td><%= link_to 'Редактировать', edit_category_path(category) %></td>
         <td><%= link_to 'Удалить', category_path(category), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
