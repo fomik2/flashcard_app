@@ -1,43 +1,45 @@
 <section id="container">
   <section>
-    <div class="hero-unit">
+    <div class="hero-unit" id='hero-unit'>
       <h1>Флэшкарточкер</h1>
       <p style="font-size: 22px;">
         Первый в мире удобный менеджер флеш-карточек. Именно так.
       </p>
     </div>
-    <ul class="nav nav-pills" >
-      <li><%= link_to "Добавить категорию", new_category_path %></li>
-      <li><%= link_to "Все категории", categories_path %></li>
-      <li style="float: right"><%= link_to "Все карточки", user_cards_path(current_user) %></li>
-    </ul>
-        <!-- Если карточки есть, то выводим форму -->
-    <% if @card %>
-      <div id="card_index">
-        <p id="category">
-          Категория: 
-          <%= @card.category.name %>
-        </p>
-        <p id="card_img_p">
-          <%= image_tag @card.picture.url(:medium) %> 
-        </p>
-        <p id='index_form'>
-          <%= @card.original_text %>
-        </p>
-      </div>
-      <%= form_tag(review_user_card_path(current_user, @card), class: "form-horizontal", id: "form_translate")  do %>
-        <%= label_tag :label, "Введите перевод:" %>
-        <%= text_field_tag :translated_text %>
-        <%= submit_tag "Проверить", class: "btn btn-primary" %>
+    <div id='content'>
+      <ul class="nav nav-pills" >
+        <li><%= link_to "Добавить категорию", new_category_path %></li>
+        <li><%= link_to "Все категории", categories_path %></li>
+        <li style="float: right"><%= link_to "Все карточки", user_cards_path(current_user) %></li>
+      </ul>
+          <!-- Если карточки есть, то выводим форму -->
+      <% if @card %>
+        <div id="card_index">
+          <p id="category">
+            Категория: 
+            <%= @card.category.name %>
+          </p>
+          <p id="card_img_p">
+            <%= image_tag @card.picture.url(:medium) %> 
+          </p>
+          <p id='index_form'>
+            <%= @card.original_text %>
+          </p>
+        </div>
+        <%= form_tag(review_user_card_path(current_user, @card), class: "form-horizontal", id: "form_translate")  do %>
+          <%= label_tag :label, "Введите перевод:" %>
+          <%= text_field_tag :translated_text %>
+          <%= submit_tag "Проверить", class: "btn btn-primary" %>
+        <% end %>
+        <% if flash[:translation_status] == 'false' %>
+          <div class="alert alert-error" id="alert_error_success">Неверно!</div> 
+        <% elsif flash[:translation_status] == 'true' %>
+          <div class="alert alert-success" id="alert_error_success">Верно! Следующая карточка</div>
+        <% end %> 
+      <% else %>
+        <span class="error">Непросмотренных карточек нет</span>
       <% end %>
-      <% if flash[:translation_status] == 'false' %>
-        <div class="alert alert-error">Неверно!</div> 
-      <% elsif flash[:translation_status] == 'true' %>
-        <div class="alert alert-success">Верно! Следующая карточка</div>
-      <% end %> 
-    <% else %>
-      <span class="error">Непросмотренных карточек нет</span>
-    <% end %>
+    </div>
   <div id="footer">
     <div class="container">
     <p id="credit">My Ruby On Rails project 2014</p>
