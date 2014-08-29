@@ -35,7 +35,7 @@ $success_color: #45C545;
   padding-left:5px; 
 }
 
-#hero-unit {
+.hero-unit {
   position: relative;
   z-index: 1;
   margin: 0;
@@ -82,10 +82,12 @@ $success_color: #45C545;
     vertical-align: middle;
   }
 }
-#alert_error_success {
+
+.alert {
   width: 300px;
   margin: 25px 0 0 30px;
 }
+
 #footer {
   z-index: 1;
   margin: 0;

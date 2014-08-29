@@ -32,21 +32,21 @@ class Card < ActiveRecord::Base
   end
 
   def update_review_date
-    case num_of_right
+    days = case num_of_right
     when 0
-      days = Date.today
+      Date.today
     when 1
-      days = Date.today + 1.day
+      Date.tomorrow
     when 2
-      days = Date.today + 3.days
+      Date.today + 3.days
     when 3
-      days = Date.today + 7.days
+      Date.today + 7.days
     when 4
-      days = Date.today + 14.days
+      Date.today + 14.days
     when 5
-      days = Date.today.next_month
+      Date.today.next_month
     else
-      days = review_date.next_month + num_of_right
+      review_date.next_month + num_of_right
     end
     update_attributes(review_date: days)
   end
