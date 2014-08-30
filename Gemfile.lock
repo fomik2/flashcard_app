@@ -65,6 +65,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    ffi (1.9.3)
     hike (1.2.3)
     httparty (0.13.1)
       json (~> 1.8)
@@ -80,6 +81,8 @@ GEM
     jwt (1.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -209,6 +212,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  levenshtein-ffi
   paperclip (~> 4.1)
   pg
   poltergeist

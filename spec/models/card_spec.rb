@@ -11,7 +11,11 @@ require 'rails_helper'
    end
 
    it "check_translation' method work" do
-     expect(@card.check_translation("собака")).to be true
+     expect(@card.check_translation("собака")).to eq 'true'
+   end
+
+   it "check misprint-checker" do
+     expect(@card.check_translation("собакв")).to eq 'misprint'
    end
 
    it "review_date change after correct answer" do

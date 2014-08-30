@@ -24,13 +24,15 @@ class Card < ActiveRecord::Base
   def check_translation(translation)
     if translation == translated_text
       increase_correct_answer_counter
-      return true
+      return 'true'
+    elsif Levenshtein.distance(translation, translated_text) <= 2
+      return 'misprint'
     else
       increase_incorrect_answer_counter
-      return false
+      return 'false'
     end
   end
-
+  
   def update_review_date
     days = case num_of_right
     when 0
