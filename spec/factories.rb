@@ -6,6 +6,8 @@ FactoryGirl.define do
     translated_text "Микрософт"
     review_date "2013-06-06"
     category_id "1"
+    num_of_right 0
+    num_of_wrong 0
   end
 
   factory :category do

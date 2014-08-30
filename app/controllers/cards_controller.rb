@@ -48,7 +48,6 @@ class CardsController < ApplicationController
   def review
     # проверка на совпадение методом из модели
     if @card.check_translation(params[:translated_text])
-      @card.update_review_date
       flash[:translation_status] = 'true'
     else
       flash[:translation_status] = 'false'

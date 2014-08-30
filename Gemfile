@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.1.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
@@ -17,6 +17,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+gem 'rails_12factor', group: :production
 gem "unicode"
 #Gem for store attached files in ASW S3
 gem "aws-sdk", "~> 1.5.7"

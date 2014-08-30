@@ -1,6 +1,6 @@
 <section id="container">
   <h1>All Cards</h1>
-  <table class="table table-striped">
+  <table class="table table-striped" id='all_card_table'>
     <tr>
       <th>Picture</th>
       <th>Категория</th>
@@ -11,7 +11,7 @@
     <tr>
     <% @cards.each do |card| %>
       <tr>
-        <td><%= image_tag f.picture.url(:thumb) %></td>
+        <td><%= image_tag card.picture.url(:thumb) %></td>
         <% if card.category %>
           <td><%= card.category.name %> </td>
         <% else %>
