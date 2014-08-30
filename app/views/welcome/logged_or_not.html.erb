@@ -2,5 +2,6 @@
   <header class="clearfix">
       <h2>Проект Флешкарточкер. Необходимо <%= link_to "войти", login_path %>
         в приложение или <%= link_to "зарегистрироваться", new_user_path %></h2>
+    <%= link_to 'Login with Facebook', auth_at_provider_path(:provider => :facebook) %>
   </header>
 </section>
