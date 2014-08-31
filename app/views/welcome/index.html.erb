@@ -35,7 +35,8 @@
           <div class="alert alert-error">Неверно!</div> 
         <% elsif flash[:translation_status] == 'true' %>
           <div class="alert alert-success">Верно! Следующая карточка</div>
-        <% end %> 
+        <% end %>
+        <span class="error"><%= flash[:misprint] %></span> 
       <% else %>
         <span class="error">Непросмотренных карточек нет</span>
       <% end %>

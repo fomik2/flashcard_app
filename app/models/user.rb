@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
       cards.review_before(Date.today).first
     end
   end
-  
+
   def password_set?
     @password
   end

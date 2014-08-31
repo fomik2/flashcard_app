@@ -1,6 +1,6 @@
 require 'fcmanageraws' #модуль для динамической загрузки названия bucket-а S3
+#require File.join(Rails.root, 'app/services/reviewresult.rb')
 class Card < ActiveRecord::Base
-  
   
   belongs_to :user
   belongs_to :category
@@ -22,15 +22,19 @@ class Card < ActiveRecord::Base
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
   
   def check_translation(translation)
-    if translation == translated_text
+    case Levenshtein.distance(translation, translated_text)
+    when 0
       increase_correct_answer_counter
-      return true
+      @result = :success
+    when 1, 2
+      @result = :misprint
     else
       increase_incorrect_answer_counter
-      return false
+      @result = :fail
     end
+    return @result 
   end
-
+  
   def update_review_date
     days = case num_of_right
     when 0
