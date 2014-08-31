@@ -29,7 +29,7 @@ describe "Index Page" do
     visit root_path
     fill_in 'translated_text', with: 'МиПрософт'
     click_on 'Проверить'
-    expect(page).to have_content('Возможно вы опечатались')
+    expect(page).to have_content('Опечатка.')
   end
 
   it "check welcome page then user is logged_in" do
