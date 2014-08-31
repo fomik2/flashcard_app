@@ -46,12 +46,12 @@ class CardsController < ApplicationController
   end
 
   def review
-    # проверка на совпадение методом из модели
-    if @card.check_translation(params[:translated_text]) == 'true'
+    @card.check_translation(params[:translated_text])
+    if @result == :success
       flash[:translation_status] = 'true'
       redirect_to welcome_path
-    elsif @card.check_translation(params[:translated_text]) == 'misprint'
-      flash[:misprint] = "Возможно вы опечатались, месье"
+    elsif @result == :misprint
+      flash[:misprint] = "Опечатка. Вы написали #{params[:translated_text]}, а надо #{@card.translated_text}"
       redirect_to welcome_path(card_id: @card)
     else
       flash[:translation_status] = 'false'
