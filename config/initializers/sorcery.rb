@@ -1,3 +1,4 @@
+require 'fcmanageraws'
 # The first thing you need to configure is which modules you need in your app.
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
@@ -110,8 +111,8 @@ Rails.application.config.sorcery.configure do |config|
   # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
   # config.twitter.user_info_mapping = {:email => "screen_name"}
   #
-   config.facebook.key = "1450365681919522"
-   config.facebook.secret = "30caea8990aac1485d3282510e2a6bf7"
+   config.facebook.key = FCManagerAWS.socnet['facebook_id']
+   config.facebook.secret = FCManagerAWS.socnet['facebook_key']
    config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
    config.facebook.user_info_mapping = { :email => "email" }
    config.facebook.access_permissions = ["email", "publish_stream"]
