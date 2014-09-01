@@ -109,12 +109,12 @@ Rails.application.config.sorcery.configure do |config|
    config.twitter.key = FCManagerAWS.socnet['twitter_id']
    config.twitter.secret = FCManagerAWS.socnet['twitter_key']
    config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
-   config.twitter.user_info_mapping = {:email => "screen_name"}
+   config.twitter.user_info_mapping = {email: "screen_name"}
   #
    config.facebook.key = FCManagerAWS.socnet['facebook_id']
    config.facebook.secret = FCManagerAWS.socnet['facebook_key']
    config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
-   config.facebook.user_info_mapping = { :email => "email" }
+   config.facebook.user_info_mapping = { email: "email" }
    config.facebook.access_permissions = ["email", "publish_stream"]
   #
   # config.github.key = ""

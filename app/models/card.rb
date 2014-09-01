@@ -6,7 +6,7 @@ class Card < ActiveRecord::Base
   belongs_to :category
   
   has_attached_file :picture, styles: { medium: "360x360>", thumb: "100x100>" },
-    default_url: "http://s3.amazonaws.com/#{FCManagerAWS.config['bucket']}/missing_:style.png",
+    default_url: "http://s3.amazonaws.com/#{ FCManagerAWS.config['bucket'] }/missing_:style.png",
     storage: :s3,
     s3_credentials: S3_CREDENTIALS
   

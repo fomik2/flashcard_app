@@ -8,7 +8,7 @@ module FCManagerAWS
   end
 
   def self.socnet
-    @_config ||= YAML.load(ERB.new(File.read(SOCNET_PATH)).result)[Rails.env]
+    @_keys ||= YAML.load(ERB.new(File.read(SOCNET_PATH)).result)[Rails.env]
   end
 
 end
