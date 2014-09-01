@@ -106,14 +106,14 @@ Rails.application.config.sorcery.configure do |config|
   # Twitter will not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
   #
-   config.twitter.key = SecretKeyManager.config('socnet.yml')['twitter_id']
-   config.twitter.secret = SecretKeyManager.config('socnet.yml')['twitter_key']
-   config.twitter.callback_url = "#{ SecretKeyManager.config('socnet.yml')['hostname'] }oauth/callback?provider=twitter"
+   config.twitter.key = SecretKeyManager.config('socnet')['twitter_id']
+   config.twitter.secret = SecretKeyManager.config('socnet')['twitter_key']
+   config.twitter.callback_url = "#{ SecretKeyManager.config('socnet')['hostname'] }oauth/callback?provider=twitter"
    config.twitter.user_info_mapping = {email: "screen_name"}
   #
-   config.facebook.key = SecretKeyManager.config('socnet.yml')['facebook_id']
-   config.facebook.secret = SecretKeyManager.config('socnet.yml')['facebook_key']
-   config.facebook.callback_url = "#{ SecretKeyManager.config('socnet.yml')['hostname'] }oauth/callback?provider=facebook"
+   config.facebook.key = SecretKeyManager.config('socnet')['facebook_id']
+   config.facebook.secret = SecretKeyManager.config('socnet')['facebook_key']
+   config.facebook.callback_url = "#{ SecretKeyManager.config('socnet')['hostname'] }oauth/callback?provider=facebook"
    config.facebook.user_info_mapping = { email: "email" }
    config.facebook.access_permissions = ["email", "publish_stream"]
   #

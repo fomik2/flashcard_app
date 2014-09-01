@@ -24,12 +24,12 @@ describe "Index Page" do
     expect(page).to have_content('Непросмотренных карточек нет')
   end
 
-  it "check behavior then translation is true" do
+  it "check behavior then misprint" do
     FactoryGirl.create(:card, user_id: @user.id)
     visit root_path
     fill_in 'translated_text', with: 'МиПрософт'
     click_on 'Проверить'
-    expect(page).to have_content('Опечатка.')
+    expect(page).to have_content('Опечатка. Вы написали МиПрософт, а надо Микрософт')
   end
 
   it "check welcome page then user is logged_in" do
