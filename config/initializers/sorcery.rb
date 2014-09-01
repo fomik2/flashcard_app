@@ -7,7 +7,7 @@ Rails.application.config.sorcery.submodules = [:external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
-  config.external_providers = [:facebook]
+  config.external_providers = [:twitter, :facebook, :vk]
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.
@@ -103,13 +103,13 @@ Rails.application.config.sorcery.configure do |config|
   # config.xing.user_info_mapping = {first_name: "first_name", last_name: "last_name"}
   #
   #
-  # Twitter wil not accept any requests nor redirect uri containing localhost,
+  # Twitter will not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
   #
-  # config.twitter.key = ""
-  # config.twitter.secret = ""
-  # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
-  # config.twitter.user_info_mapping = {:email => "screen_name"}
+   config.twitter.key = FCManagerAWS.socnet['twitter_id']
+   config.twitter.secret = FCManagerAWS.socnet['twitter_key']
+   config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
+   config.twitter.user_info_mapping = {:email => "screen_name"}
   #
    config.facebook.key = FCManagerAWS.socnet['facebook_id']
    config.facebook.secret = FCManagerAWS.socnet['facebook_key']
@@ -130,7 +130,7 @@ Rails.application.config.sorcery.configure do |config|
   # config.vk.key = ""
   # config.vk.secret = ""
   # config.vk.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=vk"
-  # config.vk.user_info_mapping = {:login => "domain", :name => "full_name"}
+  # config.vk.user_info_mapping = { :name => "full_name" }
   #
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development

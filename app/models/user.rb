@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
     config.authentications_class = Authentication
   end
   
-    validates :password, length: { minimum: 3 }, confirmation: true, if: :password_set? 
-    validates :password_confirmation, presence: true, if: :password_set?
-    validates :email, uniqueness: true
+  validates :password, length: { minimum: 3 }, confirmation: true, if: :password_set? 
+  validates :password_confirmation, presence: true, if: :password_set?
+  validates :email, uniqueness: true
 
   def pending_cards
     if current_category
