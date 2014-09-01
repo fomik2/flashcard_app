@@ -1,5 +1,5 @@
 require 'yaml'
-module FCManagerAWS
+module SecretKeyManager
   CONFIG_PATH = File.join(Rails.root, 'config/aws.yml')
   SOCNET_PATH = File.join(Rails.root, 'config/socnet.yml')
 

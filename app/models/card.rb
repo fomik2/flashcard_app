@@ -1,4 +1,4 @@
-require 'fcmanageraws' #модуль для динамической загрузки названия bucket-а S3
+require 'secretkeymanager' #модуль для динамической загрузки названия bucket-а S3
 class Card < ActiveRecord::Base
   
   
@@ -6,7 +6,7 @@ class Card < ActiveRecord::Base
   belongs_to :category
   
   has_attached_file :picture, styles: { medium: "360x360>", thumb: "100x100>" },
-    default_url: "http://s3.amazonaws.com/#{ FCManagerAWS.config['bucket'] }/missing_:style.png",
+    default_url: "http://s3.amazonaws.com/#{ SecretKeyManager.config['bucket'] }/missing_:style.png",
     storage: :s3,
     s3_credentials: S3_CREDENTIALS
   
@@ -25,14 +25,13 @@ class Card < ActiveRecord::Base
     case Levenshtein.distance(translation, translated_text)
     when 0
       increase_correct_answer_counter
-      @result = :success
+      :success
     when 1, 2
-      @result = :misprint
+      :misprint
     else
       increase_incorrect_answer_counter
-      @result = :fail
+      :fail
     end
-    return @result
   end
   
   def update_review_date
