@@ -1,4 +1,4 @@
-require 'fcmanageraws' #модуль для динамической загрузки названия bucket-а S3
+require 'secretkeymanager' #модуль для выгрузки паролей из yml-файлы
 class Card < ActiveRecord::Base
   
   
@@ -6,7 +6,7 @@ class Card < ActiveRecord::Base
   belongs_to :category
   
   has_attached_file :picture, styles: { medium: "360x360>", thumb: "100x100>" },
-    default_url: "http://s3.amazonaws.com/#{FCManagerAWS.config['bucket']}/missing_:style.png",
+    default_url: "http://s3.amazonaws.com/#{ SecretKeyManager.config('aws')['bucket'] }/missing_:style.png",
     storage: :s3,
     s3_credentials: S3_CREDENTIALS
   
@@ -22,15 +22,18 @@ class Card < ActiveRecord::Base
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
   
   def check_translation(translation)
-    if translation == translated_text
+    case Levenshtein.distance(translation, translated_text)
+    when 0
       increase_correct_answer_counter
-      return true
+      :success
+    when 1, 2
+      :misprint
     else
       increase_incorrect_answer_counter
-      return false
+      :fail
     end
   end
-
+  
   def update_review_date
     days = case num_of_right
     when 0

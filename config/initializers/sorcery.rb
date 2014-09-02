@@ -1,11 +1,13 @@
+require 'secretkeymanager'
 # The first thing you need to configure is which modules you need in your app.
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
+  config.external_providers = [:twitter, :facebook, :vk]
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.
@@ -101,19 +103,19 @@ Rails.application.config.sorcery.configure do |config|
   # config.xing.user_info_mapping = {first_name: "first_name", last_name: "last_name"}
   #
   #
-  # Twitter wil not accept any requests nor redirect uri containing localhost,
+  # Twitter will not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
   #
-  # config.twitter.key = ""
-  # config.twitter.secret = ""
-  # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
-  # config.twitter.user_info_mapping = {:email => "screen_name"}
+   config.twitter.key = SecretKeyManager.config('socnet')['twitter_id']
+   config.twitter.secret = SecretKeyManager.config('socnet')['twitter_key']
+   config.twitter.callback_url = "#{ SecretKeyManager.config('socnet')['hostname'] }oauth/callback?provider=twitter"
+   config.twitter.user_info_mapping = {email: "screen_name"}
   #
-  # config.facebook.key = ""
-  # config.facebook.secret = ""
-  # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
-  # config.facebook.user_info_mapping = {:email => "name"}
-  # config.facebook.access_permissions = ["email", "publish_stream"]
+   config.facebook.key = SecretKeyManager.config('socnet')['facebook_id']
+   config.facebook.secret = SecretKeyManager.config('socnet')['facebook_key']
+   config.facebook.callback_url = "#{ SecretKeyManager.config('socnet')['hostname'] }oauth/callback?provider=facebook"
+   config.facebook.user_info_mapping = { email: "email" }
+   config.facebook.access_permissions = ["email", "publish_stream"]
   #
   # config.github.key = ""
   # config.github.secret = ""
@@ -128,7 +130,7 @@ Rails.application.config.sorcery.configure do |config|
   # config.vk.key = ""
   # config.vk.secret = ""
   # config.vk.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=vk"
-  # config.vk.user_info_mapping = {:login => "domain", :name => "full_name"}
+  # config.vk.user_info_mapping = { :name => "full_name" }
   #
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development
@@ -148,7 +150,7 @@ Rails.application.config.sorcery.configure do |config|
     #
     user.username_attribute_names = [:email]
 
-
+    user.authentications_class = Authentication
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.
     # Default: `:password`
     #

@@ -1,6 +1,10 @@
 <section id="container">
   <header class="clearfix">
-      <h2>Проект Флешкарточкер. Необходимо <%= link_to "войти", login_path %>
+    <h2>Проект Флешкарточкер. Необходимо <%= link_to "войти", login_path %>
         в приложение или <%= link_to "зарегистрироваться", new_user_path %></h2>
+    <ul class="nav nav-pills" >
+      <li><%= link_to 'Login with Facebook', auth_at_provider_path(provider: :facebook) %></li>
+      <li><%= link_to 'Login with Twitter', auth_at_provider_path(provider: :twitter) %></li>
+    </ul>
   </header>
 </section>

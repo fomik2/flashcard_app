@@ -17,8 +17,12 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+#gem for heroku deploy
 gem 'rails_12factor', group: :production
+#for capitalize method for unicode symbol 
 gem "unicode"
+#compute Damerau-Levenshtein distance
+gem 'levenshtein-ffi', require: 'levenshtein'
 #Gem for store attached files in ASW S3
 gem "aws-sdk", "~> 1.5.7"
 #Add Paperclip - Easy file attachment library

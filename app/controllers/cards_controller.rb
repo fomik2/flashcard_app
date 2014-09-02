@@ -46,14 +46,18 @@ class CardsController < ApplicationController
   end
 
   def review
-    # проверка на совпадение методом из модели
-    if @card.check_translation(params[:translated_text])
+    @result = @card.check_translation(params[:translated_text])
+    if @result == :success
       flash[:translation_status] = 'true'
+      redirect_to welcome_path
+    elsif @result == :misprint
+      flash[:misprint] = "Опечатка. Вы написали #{params[:translated_text]}, а надо #{@card.translated_text}"
+      redirect_to welcome_path(card_id: @card)
     else
       flash[:translation_status] = 'false'
+      redirect_to welcome_path
     end
-    redirect_to welcome_path
-  end
+end
 
 private
   # определяем те параметры, которые можно передавать в метод контроллера create
