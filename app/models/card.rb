@@ -21,28 +21,28 @@ class Card < ActiveRecord::Base
             
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
-  
+
   def check_translation(translation, timer)
     @timer = timer.to_i
-    @levenshtein_value = case Levenshtein.distance(translation, translated_text)
+    case Levenshtein.distance(translation, translated_text)
     when 0
       prepare_service_object(@timer)
       :success
     when 1, 2
-      prepare_service_object_when_misprint
+      increment_number_of_misprint
       :misprint
     else
       prepare_service_object_if_answer_fail
       :fail
     end
   end
-
+  
   def prepare_service_object(timer)
     @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer)
     update_card_attributes(true)
   end
   
-  def prepare_service_object_when_misprint
+  def increment_number_of_misprint
     increment(:number_of_misprint)
     save
   end

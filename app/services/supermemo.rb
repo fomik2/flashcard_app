@@ -1,7 +1,7 @@
 class SuperMemo
   
   attr_accessor :interval, :quality, :efactor
-  
+
   def initialize(number_of_right, number_of_misprint, interval, efactor, opts_param)
     @quality = 0
     @interval = interval
