@@ -1,4 +1,4 @@
-class SuperMemo
+class SuperMemo 
   
   attr_accessor :interval, :quality, :efactor
 
@@ -6,10 +6,13 @@ class SuperMemo
     @quality = 0
     @interval = interval
     @efactor = efactor
+    @number_of_misprint = number_of_misprint
+    @number_of_right = number_of_right
     if opts_param == 'fail'
       calculate_attrubutes_when_answer_false
     else
-     calculate_attributes_when_answer_true(number_of_right, number_of_misprint, opts_param) 
+      @timer = opts_param
+      calculate_attributes_when_answer_true 
     end
   end
   
@@ -19,11 +22,11 @@ class SuperMemo
     @efactor = efactor-0.5
   end
 
-  def calculate_attributes_when_answer_true(number_of_right, number_of_misprint, opts_param)
-    if number_of_misprint > 0
+  def calculate_attributes_when_answer_true
+    if @number_of_misprint > 0
       @quality = 2
     else
-      @quality = case opts_param
+      @quality = case @timer
       when 0..15
         5
       when 15..20
@@ -37,7 +40,7 @@ class SuperMemo
       end
     end
     @efactor = (efactor+(0.1-(5-@quality)*(0.08+(5-@quality)*0.02))).round(1)
-    @interval = case number_of_right
+    @interval = case @number_of_right
     when 0
       1
     when 1
@@ -45,7 +48,7 @@ class SuperMemo
     when 2
       6
     else
-      @interval = interval*(number_of_right-1)*@efactor
+      @interval = @interval*(@number_of_right-1)*@efactor
     end
     constraint_attributes
   end
