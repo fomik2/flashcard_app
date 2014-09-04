@@ -24,33 +24,41 @@ class Card < ActiveRecord::Base
   
   def check_translation(translation, timer)
     @timer = timer.to_i
-    case Levenshtein.distance(translation, translated_text)
+    @levenshtein_value = case Levenshtein.distance(translation, translated_text)
     when 0
       prepare_service_object(@timer)
       :success
     when 1, 2
+      prepare_service_object_when_misprint
       :misprint
     else
       prepare_service_object_if_answer_fail
       :fail
     end
   end
-  
+
   def prepare_service_object(timer)
-    @super_memo_object = SuperMemo.new(number_of_right, interval, efactor, timer)
+    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer)
     update_card_attributes(true)
   end
-
+  
+  def prepare_service_object_when_misprint
+    increment(:number_of_misprint)
+    save
+  end
+  
   def prepare_service_object_if_answer_fail
-    @super_memo_object = SuperMemo.new(number_of_right, interval, efactor, 'fail')
+    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, 'fail')
     update_card_attributes(false)
   end
 
-  def update_card_attributes(fail_or_right)
-    if fail_or_right == true
+  def update_card_attributes(translation_status)
+    case translation_status 
+    when true
       increment(:number_of_right)
-    else
-      update_attributes(number_of_right: 0)
+      update_attributes(number_of_misprint: 0)
+    when false 
+      update_attributes(number_of_right: 0, number_of_misprint: 0)
     end
     increment(:number_of_review)
     update_attributes( interval: @super_memo_object.interval,
