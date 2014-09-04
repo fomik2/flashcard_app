@@ -6,78 +6,59 @@ require 'rails_helper'
      @card = Card.new({ original_text: "dog", 
                         translated_text: "собака", 
                         review_date: "2014-08-03", 
-                        num_of_wrong: 0,
-                        num_of_right: 0 })
+                        interval: 0,
+                        efactor: 2.5,
+                        number_of_right: 0,
+                        number_of_review: 0 })
    end
 
    it "check_translation' method work" do
-     expect(@card.check_translation("собака")).to eq :success
+     expect(@card.check_translation("собака", 10)).to eq :success
    end
 
    it "check misprint-checker" do
-     expect(@card.check_translation("собакв")).to eq :misprint
-   end
-
-   it "review_date change after correct answer" do
-     expect{ 
-      @card.check_translation("собака")
-    }.to change(@card, :review_date).to(Date.tomorrow)
+     expect(@card.check_translation("собакв", 10)).to eq :misprint
    end
 
     it "correct review_date change after 3 correct answer " do
      @card_for_check = Card.new({ original_text: "dog",
                                   translated_text: "собака",
-                                  review_date: "2014-08-03",
-                                  num_of_wrong: 2, 
-                                  num_of_right: 3 })
+                                  review_date: "2014-09-03",
+                                  interval: 6,
+                                  efactor: 2.5,
+                                  number_of_right: 3,
+                                  number_of_review: 0 })
      expect {
-       @card_for_check.check_translation("собака")
-     }.to change(@card_for_check, :review_date).to(Date.today + 14)
+       @card_for_check.check_translation("собака", 10)
+     }.to change(@card_for_check, :review_date).to(Date.parse("2014-10-04"))
    end
 
-   it "increments number of correct answers" do
+   it "reset interval after incorrect answers" do
     @card_for_check = Card.new({  original_text: "dog",
                                   translated_text: "собака",
                                   review_date: "2014-08-03",
-                                  num_of_wrong: 2, 
-                                  num_of_right: 4 })
+                                  interval: 3,
+                                  efactor: 2.8,
+                                  number_of_right: 12,
+                                  number_of_review: 3})
     expect {
-       @card_for_check.check_translation("собака")
-     }.to change(@card_for_check, :num_of_right).to(5)
+       @card_for_check.check_translation("кошка", 10)
+     }.to change(@card_for_check, :interval).to(0)
    end
 
-   it "correct review_date value change after five correct answers" do
-     @card_for_check = Card.new({ original_text: "dog",
-                                  translated_text: "собака", 
-                                  review_date: "2014-08-03",
-                                  num_of_wrong: 2,
-                                  num_of_right: 6 })
-     expect { 
-       @card_for_check.increase_correct_answer_counter 
-     }.to change(@card_for_check, :review_date).to(Date.parse("2014-09-10"))
-   end
-
-   it "set to zero num_of_right value after three in sequence incorrect answers" do
-     @card_for_check = Card.new({ original_text: "dog",
+   it "reset review_date after incorrect answers" do
+    @card_for_check = Card.new({  original_text: "dog",
                                   translated_text: "собака",
                                   review_date: "2014-08-03",
-                                  num_of_wrong: 3, 
-                                  num_of_right: 6 })
-     expect {
-       @card_for_check.increase_incorrect_answer_counter 
-     }.to change( @card_for_check, :num_of_right).to(0)
-   end
-
-   it "review_date value change after three in sequence incorrect answers" do
-     @card_for_check = Card.new({ original_text: "dog",
-                                 translated_text: "собака",
-                                 review_date: "2014-08-03",
-                                 num_of_wrong: 3,
-                                 num_of_right: 4 })
-     expect {
-       @card_for_check.increase_incorrect_answer_counter 
+                                  interval: 3,
+                                  efactor: 2.8,
+                                  number_of_right: 12,
+                                  number_of_review: 3})
+    expect {
+       @card_for_check.check_translation("кошка", 10)
      }.to change(@card_for_check, :review_date).to(Date.today)
    end
+
 
  end
  

@@ -1,4 +1,5 @@
 require 'secretkeymanager' #модуль для выгрузки паролей из yml-файлы
+require "class_autoinclude"
 class Card < ActiveRecord::Base
   
   
@@ -21,50 +22,52 @@ class Card < ActiveRecord::Base
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
   
-  def check_translation(translation)
+  def check_translation(translation, timer)
+    @timer = timer.to_i
     case Levenshtein.distance(translation, translated_text)
     when 0
-      increase_correct_answer_counter
+      prepare_service_object(@timer)
       :success
     when 1, 2
       :misprint
     else
-      increase_incorrect_answer_counter
+      prepare_service_object_if_answer_fail
       :fail
     end
   end
   
+  def prepare_service_object(timer)
+    @super_memo_object = SuperMemo.new(number_of_right, interval, efactor, timer)
+    update_card_attributes(true)
+  end
+
+  def prepare_service_object_if_answer_fail
+    @super_memo_object = SuperMemo.new(number_of_right, interval, efactor, 'fail')
+    update_card_attributes(false)
+  end
+
+  def update_card_attributes(fail_or_right)
+    if fail_or_right == true
+      increment(:number_of_right)
+    else
+      update_attributes(number_of_right: 0)
+    end
+    increment(:number_of_review)
+    update_attributes( interval: @super_memo_object.interval,
+                       efactor: @super_memo_object.efactor )
+    update_review_date
+  end
+
   def update_review_date
-    days = case num_of_right
+    days = case interval
     when 0
       Date.today
     when 1
       Date.tomorrow
-    when 2
-      Date.today + 3.days
-    when 3
-      Date.today + 7.days
-    when 4
-      Date.today + 14.days
-    when 5
-      Date.today.next_month
     else
-      review_date.next_month + num_of_right
+      review_date + interval
     end
     update_attributes(review_date: days)
-  end
-
-  def increase_correct_answer_counter
-    increment(:num_of_right)
-    update_review_date
-  end
-  
-  def increase_incorrect_answer_counter
-    increment(:num_of_wrong)
-    if num_of_wrong >= 3
-      update_attributes(num_of_right: 0, num_of_wrong: 0)                                   
-    end
-    update_review_date
   end
   
 end
