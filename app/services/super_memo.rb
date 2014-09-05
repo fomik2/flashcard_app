@@ -2,27 +2,27 @@ class SuperMemo
   
   attr_accessor :interval, :quality, :efactor
 
-  def initialize(number_of_right, number_of_misprint, interval, efactor, opts_param)
+  def initialize(number_of_right, number_of_misprint, interval, efactor, timer, status)
     @quality = 0
     @interval = interval
     @efactor = efactor
     @number_of_misprint = number_of_misprint
     @number_of_right = number_of_right
-    if opts_param == 'fail'
-      calculate_attrubutes_when_answer_false
+    if status
+      @timer = timer
+      calculate_attributes_when_translation_true
     else
-      @timer = opts_param
-      calculate_attributes_when_answer_true 
+      calculate_attributes_when_translation_false
     end
   end
-  
-  def calculate_attrubutes_when_answer_false
+
+  def calculate_attributes_when_translation_false
     @quality = 0
     @interval = 0
-    @efactor = efactor-0.5
+    @efactor = efactor - 0.5
   end
 
-  def calculate_attributes_when_answer_true
+  def calculate_attributes_when_translation_true
     if @number_of_misprint > 0
       @quality = 2
     else
@@ -39,7 +39,7 @@ class SuperMemo
         1
       end
     end
-    @efactor = (efactor+(0.1-(5-@quality)*(0.08+(5-@quality)*0.02))).round(1)
+    @efactor = (efactor + (0.1 -(5 - @quality)*(0.08 + (5 - @quality)*0.02))).round(1)
     @interval = case @number_of_right
     when 0
       1

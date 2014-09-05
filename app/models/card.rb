@@ -1,5 +1,4 @@
 require 'secretkeymanager' #модуль для выгрузки паролей из yml-файлы
-require "class_autoinclude"
 class Card < ActiveRecord::Base
   
   
@@ -26,29 +25,29 @@ class Card < ActiveRecord::Base
     @timer = timer.to_i
     case Levenshtein.distance(translation, translated_text)
     when 0
-      prepare_service_object(@timer)
+      prepare_service_object_when_translation_true(@timer)
       :success
     when 1, 2
-      increment_number_of_misprint
+      increment_number_of_misprint_when_translation_misprint
       :misprint
     else
-      prepare_service_object_if_answer_fail
+      prepare_service_object_when_translation_false(@timer)
       :fail
     end
   end
   
-  def prepare_service_object(timer)
-    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer)
+  def prepare_service_object_when_translation_true(timer)
+    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, true)
     update_card_attributes(true)
   end
   
-  def increment_number_of_misprint
+  def increment_number_of_misprint_when_translation_misprint
     increment(:number_of_misprint)
     save
   end
   
-  def prepare_service_object_if_answer_fail
-    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, 'fail')
+  def prepare_service_object_when_translation_false(timer)
+    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, false)
     update_card_attributes(false)
   end
 
