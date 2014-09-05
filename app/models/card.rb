@@ -28,7 +28,8 @@ class Card < ActiveRecord::Base
       prepare_service_object_when_translation_true(@timer)
       :success
     when 1, 2
-      increment_number_of_misprint_when_translation_misprint
+      increment(:number_of_misprint)
+      save
       :misprint
     else
       prepare_service_object_when_translation_false(@timer)
@@ -40,12 +41,7 @@ class Card < ActiveRecord::Base
     @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, true)
     update_card_attributes(true)
   end
-  
-  def increment_number_of_misprint_when_translation_misprint
-    increment(:number_of_misprint)
-    save
-  end
-  
+ 
   def prepare_service_object_when_translation_false(timer)
     @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, false)
     update_card_attributes(false)
