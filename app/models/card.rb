@@ -63,14 +63,14 @@ class Card < ActiveRecord::Base
 
   def update_review_date
     days = case interval
-    when 0
-      Date.today
-    when 1
-      Date.tomorrow
-    else
-      review_date + interval
-    end
-    update_attributes(review_date: days)
-  end
+           when 0
+             Date.today
+           when 1
+             Date.tomorrow
+           else
+             review_date + interval
+           end
+             update_attributes(review_date: days)
+           end
   
 end
