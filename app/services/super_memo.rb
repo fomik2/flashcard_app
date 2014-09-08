@@ -26,25 +26,34 @@ class SuperMemo
 private
 
   def calculate_attributes_when_translation_true
+    @quality = calculate_quality
+    #вычисление коэффициента эффективности и интервала между просмотрами для карточки
+    @efactor = (efactor + (0.1 -(5 - @quality) * (0.08 + (5 - @quality) * 0.02))).round(1)
+    @interval = calculate_interval
+    constraint_attributes
+  end
+  
+  def calculate_quality
     if @number_of_misprint > 0
       @quality = 2
     else
-      @quality = case @timer
-                 when 0..15
-                   5
-                 when 15..20
-                   4
-                 when 20..30
-                   3
-                 when 30..40
-                   2 
-                 when 40..60
-                   1
-                 end
+    @quality = case @timer
+               when 0..15
+                 5
+               when 15..20
+                 4
+               when 20..30
+                 3
+               when 30..40
+                 2 
+               when 40..60
+                 1
+               end
     end
-    #вычисление коэффициента эффективности и интервала между просмотрами для карточки
-    @efactor = (efactor + (0.1 -(5 - @quality) * (0.08 + (5 - @quality) * 0.02))).round(1)
-    @interval = case @number_of_right
+  end
+
+ def calculate_interval
+  @interval = case @number_of_right
                 when 0
                   1
                 when 1
@@ -54,9 +63,8 @@ private
                 else
                   @interval = @interval * (@number_of_right - 1) * @efactor
                 end
-    constraint_attributes
   end
- 
+
   #ограничения для значений коэффициентов
   def constraint_attributes
     if @interval > 45
