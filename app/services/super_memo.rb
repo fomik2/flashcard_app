@@ -18,15 +18,12 @@ class SuperMemo
       @timer = timer
       calculate_attributes_when_translation_true
     else
-      calculate_attributes_when_translation_false
+      @interval = 0
+      @efactor = efactor - 0.5
     end
   end
 
-  def calculate_attributes_when_translation_false
-    @quality = 0
-    @interval = 0
-    @efactor = efactor - 0.5
-  end
+private
 
   def calculate_attributes_when_translation_true
     if @number_of_misprint > 0
