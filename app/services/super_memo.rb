@@ -20,6 +20,7 @@ class SuperMemo
     else
       @interval = 0
       @efactor = efactor - 0.5
+      constraint_attributes
     end
   end
 
@@ -70,8 +71,8 @@ private
     if @interval > 45
         @interval = 45
       end
-      if @efactor < 1.3
-        @interval = 1.3
-      end
+    if @efactor < 1.3
+        @efactor = 1.3
+    end
   end
 end
