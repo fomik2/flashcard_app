@@ -1,3 +1,9 @@
+=begin
+Сервисный объект для модели Card. Реализует метод SuperMemo, вычисляющий интервалы
+между просмотрами той или иной карточки на основе коэффициентов quality и efactor.
+Коэффициент quality высчитывается на основе таймера на странице с карточкой. Чем болше времени 
+требуется на перевод, тем меньше коэффициент quality.
+=end
 class SuperMemo 
   
   attr_accessor :interval, :quality, :efactor
@@ -27,32 +33,33 @@ class SuperMemo
       @quality = 2
     else
       @quality = case @timer
-      when 0..15
-        5
-      when 15..20
-        4
-      when 20..30
-        3
-      when 30..40
-        2 
-      when 40..60
-        1
-      end
+                 when 0..15
+                   5
+                 when 15..20
+                   4
+                 when 20..30
+                   3
+                 when 30..40
+                   2 
+                 when 40..60
+                   1
+                 end
     end
+    #вычисление коэффициента эффективности и интервала между просмотрами для карточки
     @efactor = (efactor + (0.1 -(5 - @quality)*(0.08 + (5 - @quality)*0.02))).round(1)
     @interval = case @number_of_right
-    when 0
-      1
-    when 1
-      2
-    when 2
-      6
-    else
-      @interval = @interval*(@number_of_right-1)*@efactor
-    end
+                when 0
+                  1
+                when 1
+                  2
+                when 2
+                  6
+                else
+                  @interval = @interval*(@number_of_right-1)*@efactor
+                end
     constraint_attributes
   end
-
+  #ограничения для значений коэффициентов
   def constraint_attributes
     if @interval > 45
         @interval = 45
