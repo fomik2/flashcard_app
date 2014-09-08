@@ -59,6 +59,7 @@ class SuperMemo
                 end
     constraint_attributes
   end
+ 
   #ограничения для значений коэффициентов
   def constraint_attributes
     if @interval > 45

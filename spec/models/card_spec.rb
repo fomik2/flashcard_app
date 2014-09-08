@@ -28,10 +28,6 @@ require 'rails_helper'
      }.to change(@card, :number_of_misprint).to(1)
    end
 
-   it "check misprint-checker" do
-     expect(@card.levenshtein_check("собакв")).to eq(:misprint)
-   end
-
     it "correct review_date change after 3 correct answer " do
      @card_for_check = Card.new({ original_text: "dog",
                                   translated_text: "собака",

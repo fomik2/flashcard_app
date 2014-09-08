@@ -33,17 +33,7 @@ class Card < ActiveRecord::Base
     when :fail
       update_review_attributes(@timer, false)
     end
-  end
-
-  def levenshtein_check(translation)
-    case Levenshtein.distance(translation, translated_text)
-    when 0
-      :success
-    when 1, 2
-      :misprint
-    else
-      :fail
-    end
+    return levenshtein_check_result
   end
   
   def update_review_attributes(timer, translation_succeed)
@@ -59,6 +49,19 @@ class Card < ActiveRecord::Base
       review_attributes.update(number_of_right: 0, number_of_misprint: 0, review_date: Date.today)     
     end
     update_attributes(review_attributes)
+  end
+
+private
+
+def levenshtein_check(translation)
+    case Levenshtein.distance(translation, translated_text)
+    when 0
+      :success
+    when 1, 2
+      :misprint
+    else
+      :fail
+    end
   end
 
 end
