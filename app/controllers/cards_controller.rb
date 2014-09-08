@@ -46,7 +46,8 @@ class CardsController < ApplicationController
   end
 
   def review
-    @result = @card.check_translation(params[:translated_text], params[:timer_value])
+    @card.check_translation(params[:translated_text], params[:timer_value])
+    @result = @card.levenshtein_check(params[:translated_text])
     if @result == :success
       flash[:translation_status] = 'true'
       redirect_to welcome_path

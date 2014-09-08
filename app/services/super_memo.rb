@@ -46,7 +46,7 @@ class SuperMemo
                  end
     end
     #вычисление коэффициента эффективности и интервала между просмотрами для карточки
-    @efactor = (efactor + (0.1 -(5 - @quality)*(0.08 + (5 - @quality)*0.02))).round(1)
+    @efactor = (efactor + (0.1 -(5 - @quality) * (0.08 + (5 - @quality) * 0.02))).round(1)
     @interval = case @number_of_right
                 when 0
                   1
@@ -55,7 +55,7 @@ class SuperMemo
                 when 2
                   6
                 else
-                  @interval = @interval*(@number_of_right-1)*@efactor
+                  @interval = @interval * (@number_of_right - 1) * @efactor
                 end
     constraint_attributes
   end

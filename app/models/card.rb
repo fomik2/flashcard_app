@@ -23,54 +23,42 @@ class Card < ActiveRecord::Base
 
   def check_translation(translation, timer)
     @timer = timer.to_i
-    case Levenshtein.distance(translation, translated_text)
-    when 0
-      prepare_supermemo_object_when_translation_true(@timer)
-      :success
-    when 1, 2
+    levenshtein_check_result = levenshtein_check(translation)
+    case levenshtein_check_result
+    when :success
+      update_review_attributes(@timer, true)
+    when :misprint
       increment(:number_of_misprint)
       save
+    when :fail
+      update_review_attributes(@timer, false)
+    end
+  end
+
+  def levenshtein_check(translation)
+    case Levenshtein.distance(translation, translated_text)
+    when 0
+      :success
+    when 1, 2
       :misprint
     else
-      prepare_supermemo_object_when_translation_false(@timer)
       :fail
     end
   end
   
-  def prepare_supermemo_object_when_translation_true(timer)
-    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, true)
-    change_supermemo_attributes(true)
-  end
- 
-  def prepare_supermemo_object_when_translation_false(timer)
-    @super_memo_object = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, false)
-    change_supermemo_attributes(false)
-  end
-
-  def change_supermemo_attributes(translation_status)
-    case translation_status 
-    when true
-      increment(:number_of_right)
-      update_attributes(number_of_misprint: 0)
-    when false 
-      update_attributes(number_of_right: 0, number_of_misprint: 0)
+  def update_review_attributes(timer, translation_succeed)
+    supermemo = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, translation_succeed)  
+    review_attributes = { interval: supermemo.interval,
+                          efactor: supermemo.efactor,
+                          number_of_review: number_of_review + 1 
+                        }
+    if translation_succeed
+      review_attributes.update(number_of_misprint: 0, number_of_right: number_of_right + 1)
+      update_attributes(review_date: Date.today + supermemo.interval)
+    else
+      review_attributes.update(number_of_right: 0, number_of_misprint: 0, review_date: Date.today)     
     end
-    increment(:number_of_review)
-    update_attributes( interval: @super_memo_object.interval,
-                       efactor: @super_memo_object.efactor )
-    update_review_date
+    update_attributes(review_attributes)
   end
 
-  def update_review_date
-    days = case interval
-           when 0
-             Date.today
-           when 1
-             Date.tomorrow
-           else
-             review_date + interval
-           end
-             update_attributes(review_date: days)
-           end
-  
 end
