@@ -27,7 +27,7 @@
           </p>
         </div>
         <%= form_tag(review_user_card_path(current_user, @card), class: "form-horizontal", id: "form_translate")  do %>
-          <%= hidden_field_tag :timer_value %>
+          <%= text_field_tag :timer_value %>
           <%= label_tag :label, "Введите перевод:" %>
           <%= text_field_tag :translated_text %>
           <%= submit_tag "Проверить", class: "btn btn-primary" %>

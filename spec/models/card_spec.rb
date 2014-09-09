@@ -39,7 +39,7 @@ require 'rails_helper'
                                   number_of_review: 0 })
      expect {
        @card_for_check.check_translation("собака", 10)
-     }.to change(@card_for_check, :review_date).to(Date.parse("2014-09-09"))
+     }.to change(@card_for_check, :review_date).to(Date.tomorrow)
    end
 
    it "check number of misprint increment" do

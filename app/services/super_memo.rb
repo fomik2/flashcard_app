@@ -16,8 +16,11 @@ class SuperMemo
     @number_of_right = number_of_right
     if status
       @timer = timer
-      calculate_attributes_when_translation_true
+      calculate_attributes_when_translation_is_correct
     else
+     
+      # Обнуление интервала и уменьшение фактора эффективности на 0.5 при неправильном переводе карточки
+      # для уменьшения промежутка между просмотрами
       @interval = 0
       @efactor = efactor - 0.5
       constraint_attributes
@@ -26,18 +29,23 @@ class SuperMemo
 
 private
 
-  def calculate_attributes_when_translation_true
+  def calculate_attributes_when_translation_is_correct
     @quality = calculate_quality
-    #вычисление коэффициента эффективности и интервала между просмотрами для карточки
+    
+    # вычисление коэффициента эффективности и интервала между просмотрами для карточки
     @efactor = (efactor + (0.1 -(5 - @quality) * (0.08 + (5 - @quality) * 0.02))).round(1)
     @interval = calculate_interval
     constraint_attributes
   end
   
   def calculate_quality
+
+    # Если случилась опечатка, то качество ответа присваивается двойке
     if @number_of_misprint > 0
       @quality = 2
     else
+    
+    # Если перевод корректен, то качество ответа зависит от таймера (от скорости дачи ответа)
     @quality = case @timer
                when 0..15
                  5
@@ -54,16 +62,19 @@ private
   end
 
  def calculate_interval
+
+  # Интервал между просмотрами зависит от количества правильных ответов, которые были даны,
+  # коэффициента эффективности.
   @interval = case @number_of_right
-                when 0
-                  1
-                when 1
-                  2
-                when 2
-                  6
-                else
-                  @interval = @interval * (@number_of_right - 1) * @efactor
-                end
+              when 0
+                1
+              when 1
+                2
+              when 2
+                6
+              else
+                @interval * (@number_of_right - 1) * @efactor
+              end
   end
 
   #ограничения для значений коэффициентов

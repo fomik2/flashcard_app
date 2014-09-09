@@ -38,13 +38,13 @@ class Card < ActiveRecord::Base
   
   def update_review_attributes(timer, translation_succeed)
     supermemo = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, translation_succeed)  
-    review_attributes = { interval: supermemo.interval,
+    review_attributes = { 
+                          interval: supermemo.interval,
                           efactor: supermemo.efactor,
                           number_of_review: number_of_review + 1 
                         }
     if translation_succeed
-      review_attributes.update(number_of_misprint: 0, number_of_right: number_of_right + 1)
-      update_attributes(review_date: Date.today + supermemo.interval)
+      review_attributes.update(number_of_misprint: 0, number_of_right: number_of_right + 1, review_date: Date.today + supermemo.interval)
     else
       review_attributes.update(number_of_right: 0, number_of_misprint: 0, review_date: Date.today)     
     end
