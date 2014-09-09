@@ -79,11 +79,7 @@ private
 
   #ограничения для значений коэффициентов
   def constraint_attributes
-    if @interval > 45
-        @interval = 45
-      end
-    if @efactor < 1.3
-        @efactor = 1.3
-    end
+    @interval > 45 ? 45 : @interval
+    @efactor < 1.3 ? 1.3 : @efactor
   end
 end

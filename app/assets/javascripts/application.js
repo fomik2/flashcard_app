@@ -18,6 +18,8 @@
 
  
 $(function() { 
+
+// Таймер для расчета качества ответа (quality)
   if($("#timer_value").length > 0) {
     var counter = 0;
     var timer = setInterval(function() { 
