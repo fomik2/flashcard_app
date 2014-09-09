@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830151212) do
+ActiveRecord::Schema.define(version: 20140904124735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,11 @@ ActiveRecord::Schema.define(version: 20140830151212) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.integer  "category_id"
-    t.integer  "num_of_right",         default: 0
-    t.integer  "num_of_wrong",         default: 0
+    t.integer  "interval",             default: 0
+    t.float    "efactor",              default: 2.5
+    t.integer  "number_of_review",     default: 0
+    t.integer  "number_of_right",      default: 0
+    t.integer  "number_of_misprint",   default: 0
   end
 
   create_table "categories", force: true do |t|

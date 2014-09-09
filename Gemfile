@@ -17,6 +17,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+gem 'pry-byebug'
 #gem for heroku deploy
 gem 'rails_12factor', group: :production
 #for capitalize method for unicode symbol 

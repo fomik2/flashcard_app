@@ -20,51 +20,48 @@ class Card < ActiveRecord::Base
             
   # скоуп позволяет выделить часто использованные запросы и поместить их в метод
   scope :review_before, ->(date) { where("review_date <= ?", date).order('RANDOM()') }
+
+  def check_translation(translation, timer)
+    @timer = timer.to_i
+    levenshtein_check_result = levenshtein_check(translation)
+    case levenshtein_check_result
+    when :success
+      update_review_attributes(@timer, true)
+    when :misprint
+      increment(:number_of_misprint)
+      save
+    when :fail
+      update_review_attributes(@timer, false)
+    end
+    return levenshtein_check_result
+  end
   
-  def check_translation(translation)
+  def update_review_attributes(timer, translation_succeed)
+    supermemo = SuperMemo.new(number_of_right, number_of_misprint, interval, efactor, timer, translation_succeed)  
+    review_attributes = { 
+                          interval: supermemo.interval,
+                          efactor: supermemo.efactor,
+                          number_of_review: number_of_review + 1 
+                        }
+    if translation_succeed
+      review_attributes.update(number_of_misprint: 0, number_of_right: number_of_right + 1, review_date: Date.today + supermemo.interval)
+    else
+      review_attributes.update(number_of_right: 0, number_of_misprint: 0, review_date: Date.today)     
+    end
+    update_attributes(review_attributes)
+  end
+
+private
+
+def levenshtein_check(translation)
     case Levenshtein.distance(translation, translated_text)
     when 0
-      increase_correct_answer_counter
       :success
     when 1, 2
       :misprint
     else
-      increase_incorrect_answer_counter
       :fail
     end
   end
-  
-  def update_review_date
-    days = case num_of_right
-    when 0
-      Date.today
-    when 1
-      Date.tomorrow
-    when 2
-      Date.today + 3.days
-    when 3
-      Date.today + 7.days
-    when 4
-      Date.today + 14.days
-    when 5
-      Date.today.next_month
-    else
-      review_date.next_month + num_of_right
-    end
-    update_attributes(review_date: days)
-  end
 
-  def increase_correct_answer_counter
-    increment(:num_of_right)
-    update_review_date
-  end
-  
-  def increase_incorrect_answer_counter
-    increment(:num_of_wrong)
-    if num_of_wrong >= 3
-      update_attributes(num_of_right: 0, num_of_wrong: 0)                                   
-    end
-    update_review_date
-  end
-  
 end
