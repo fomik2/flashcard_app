@@ -78,7 +78,6 @@ class CardsController < ApplicationController
         format.js
       end
     else
-      Rails.logger.warn @card.inspect
       flash[:translation_status] = 'false'
       respond_to do |format|
         format.html { redirect_to home_path }
