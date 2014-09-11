@@ -1,0 +1,7 @@
+<ul class="nav nav-pills" >
+  <li><%= link_to "Добавить категорию", new_category_path %></li>
+  <li><%= link_to "Все категории", categories_path %></li>
+  <li style="float: right"><%= link_to "Все карточки", user_cards_path(current_user) %></li>
+</ul>
+<span class="error">Непросмотренных карточек нет</span>
+       

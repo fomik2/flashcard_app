@@ -45,7 +45,7 @@ private
       @quality = 2
     else
     
-    # Если перевод корректен, то качество ответа зависит от таймера (от скорости дачи ответа)
+    # Если перевод корректен, то качество ответа зависит от таймера (от скорости дачи ответа) 
     @quality = case @timer
                when 0..15
                  5
@@ -79,7 +79,7 @@ private
 
   #ограничения для значений коэффициентов
   def constraint_attributes
-    @interval > 45 ? 45 : @interval
-    @efactor < 1.3 ? 1.3 : @efactor
+    @interval = @interval > 45 ? 45 : @interval
+    @efactor = @efactor < 1.3 ? 1.3 : @efactor
   end
 end

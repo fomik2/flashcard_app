@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       auto_login(@user)
-      redirect_to welcome_path
+      redirect_to home_path
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   #записывает текущую категорию в поле current_category_id
   def set_current_category
     current_user.set_current_category(params[:category_id])
-    redirect_to welcome_path
+    redirect_to home_path
   end
 
 private

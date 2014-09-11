@@ -16,9 +16,9 @@ class User < ActiveRecord::Base
 
   def pending_cards
     if current_category
-      current_category.cards.review_before(Date.today).first
+      current_category.cards.review_before(Date.today)
     else
-      cards.review_before(Date.today).first
+      cards.review_before(Date.today)
     end
   end
 

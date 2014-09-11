@@ -1,13 +1,30 @@
 class CardsController < ApplicationController
   # метод before_action добавляет срабатывание метода find_card 
-  before_action :find_card, except: [:new, :create, :index]
+  skip_before_action :require_login, only: :logged_or_not
+  before_action :find_card, except: [:new, :create, :index, :home, :logged_or_not]
   
+  def logged_or_not
+    if logged_in?
+      redirect_to home_path
+    else
+      render 'logged_or_not'
+    end
+  end
+
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
     # и не вылетало ошибки на if @cards.errors.any
     @card = current_user.cards.new
   end
   
+  def home
+    if params[:card_id]
+      @card = current_user.cards.find(params[:card_id])
+    else
+      @card = current_user.pending_cards.first
+    end
+  end
+
   def index
    @cards = current_user.cards.all
   end
@@ -34,7 +51,7 @@ class CardsController < ApplicationController
   
   def update
     if @card.update(card_params)
-      redirect_to user_card_path(current_user, @card)
+      redirect_to user_cards_path
     else
       render 'edit'
     end
@@ -48,14 +65,25 @@ class CardsController < ApplicationController
   def review
     @result = @card.check_translation(params[:translated_text], params[:timer_value])
     if @result == :success
+      @card = current_user.pending_cards.first
       flash[:translation_status] = 'true'
-      redirect_to welcome_path
+      respond_to do |format|
+        format.html { redirect_to home_path }
+        format.js
+      end
     elsif @result == :misprint
       flash[:misprint] = "Опечатка. Вы написали #{params[:translated_text]}, а надо #{@card.translated_text}"
-      redirect_to welcome_path(card_id: @card)
+      respond_to do |format|
+        format.html { redirect_to home_path(card_id: @card) }
+        format.js
+      end
     else
+      Rails.logger.warn @card.inspect
       flash[:translation_status] = 'false'
-      redirect_to welcome_path
+      respond_to do |format|
+        format.html { redirect_to home_path }
+        format.js
+      end
     end
 end
 

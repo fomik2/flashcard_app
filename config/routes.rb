@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root :to => 'welcome#logged_or_not'
+  root :to => 'cards#logged_or_not'
   put 'set_current_category' => 'users#set_current_category'
-  get 'welcome' => 'welcome#index'
+  get 'home' => 'cards#home'
   get 'login' => 'user_sessions#new'
   post 'logout' => 'user_sessions#destroy'
   post "oauth/callback" => "oauths#callback"
