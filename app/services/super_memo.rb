@@ -23,9 +23,18 @@ class SuperMemo
       # для уменьшения промежутка между просмотрами
       @interval = 0
       @efactor = efactor - 0.5
-      constraint_attributes
     end
   end
+
+  # Геттеры для ограничения аттрибутов
+  def efactor
+    @efactor < 1.3 ? 1.3 : @efactor
+  end
+
+  def interval
+    @interval > 45 ? 45 : @interval 
+  end
+
 
 private
 
@@ -35,7 +44,8 @@ private
     # вычисление коэффициента эффективности и интервала между просмотрами для карточки
     @efactor = (efactor + (0.1 -(5 - @quality) * (0.08 + (5 - @quality) * 0.02))).round(1)
     @interval = calculate_interval
-    constraint_attributes
+    @interval = interval
+    @efactor = efactor
   end
   
   def calculate_quality
@@ -77,9 +87,4 @@ private
               end
   end
 
-  #ограничения для значений коэффициентов
-  def constraint_attributes
-    @interval = @interval > 45 ? 45 : @interval
-    @efactor = @efactor < 1.3 ? 1.3 : @efactor
-  end
 end

@@ -1,17 +1,15 @@
 $("div.alert").remove();
 $("span.error").remove();
 <% if @result == :success %>
-  $("#form_translate").remove();
   <% if @card %>
     $("#form_translate").remove();
     $("#card_index").html("<%= j render 'cards/card', card: @card %>");
-    $("#content").append("<%= j render 'cards/form_translate' %>");
     $("#content").append("<div class='alert alert-success'>Верно! Следующая карточка</div>");
   <% else %>
     $("#content").html("<%= j render 'cards/no_more_cards'  %>");
   <% end %>
 <% elsif @result == :misprint %>
-  $("#content").append("<span class='error'><%= flash[:misprint] %></span>");
+  $("#content").append("<span class='no_more_cards'>Опечатка. Вы написали <%= params[:translated_text] %>, а надо <%= @card.translated_text %></span>");
 <% else %>
   $("#content").append("<div class='alert alert-error'>Неверно!</div>");
 <% end %>

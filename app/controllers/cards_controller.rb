@@ -64,27 +64,12 @@ class CardsController < ApplicationController
 
   def review
     @result = @card.check_translation(params[:translated_text], params[:timer_value])
-    if @result == :success
-      @card = current_user.pending_cards.first
-      flash[:translation_status] = 'true'
-      respond_to do |format|
-        format.html { redirect_to home_path }
-        format.js
-      end
-    elsif @result == :misprint
-      flash[:misprint] = "Опечатка. Вы написали #{params[:translated_text]}, а надо #{@card.translated_text}"
-      respond_to do |format|
-        format.html { redirect_to home_path(card_id: @card) }
-        format.js
-      end
-    else
-      flash[:translation_status] = 'false'
-      respond_to do |format|
-        format.html { redirect_to home_path }
-        format.js
-      end
+    @card = current_user.pending_cards.first
+    respond_to do |format|
+      format.js
     end
-end
+  end
+
 
 private
   # определяем те параметры, которые можно передавать в метод контроллера create
