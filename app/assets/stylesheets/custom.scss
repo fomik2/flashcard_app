@@ -22,11 +22,28 @@ $success_color: #45C545;
 }
 
 .error {
+  position: absolute;
+  z-index: 2;
   display: block;
   margin: 20px;
   color: $error_color;
   font-style: italic;
   padding-left:5px; 
+  margin: 680px 0 0 45px;
+}
+
+.no_more_cards {
+  position: absolute;
+  z-index: 2;
+  font-style: italic;
+  padding-left:5px;
+  font-size: 22px;
+  color: $success_color; 
+  margin: 100px 0 0 45px;
+}
+
+#menu {
+  margin-bottom: 0px;
 }
 
 .success {
@@ -43,19 +60,21 @@ $success_color: #45C545;
 }
 
 #content {
-  z-index: -1;
-  height: 900px;
+  height: 750px;
+  width: 100%;
   background-color: #f0f0f0;
+  margin: -100px 0px 0px 0px;
 }
 
 #card_index {
+  position: absolute;
   width: 360px;
   border-radius: 10px;
   padding: 20px;
   -webkit-box-shadow: 3px 3px 12px 0px rgba(50, 50, 50, 0.48);
   -moz-box-shadow: 3px 3px 12px 0px rgba(50, 50, 50, 0.48);
   box-shadow: 3px 3px 12px 0px rgba(50, 50, 50, 0.48);
-  margin: 40px 0px 45px 30px;
+  margin: 90px 0px 45px 30px;
   p {
     font-size: 16px;
     font-weight: bold;
@@ -74,6 +93,7 @@ $success_color: #45C545;
 }
 
 #form_translate {
+  position: relative;
   margin: 60px 0 20px 30px; 
 }
 
@@ -84,8 +104,10 @@ $success_color: #45C545;
 }
 
 .alert {
+  z-index: 2;
+  position: absolute;
   width: 300px;
-  margin: 25px 0 0 30px;
+  margin: 680px 0 0 45px;
 }
 
 #footer {
