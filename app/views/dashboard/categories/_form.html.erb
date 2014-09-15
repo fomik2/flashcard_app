@@ -10,7 +10,7 @@
   </div>
   </br>
 <% end %>
-<%= simple_form_for @category do |f| %>
+<%= simple_form_for [:dashboard, @category] do |f| %>
   <%= f.input :name, label: 'Название' %>
   <%= f.input :about, label: 'Описание'  %>
   <%= f.button :submit, label: 'Добавить' %>

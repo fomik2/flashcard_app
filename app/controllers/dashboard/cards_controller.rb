@@ -1,15 +1,7 @@
-class CardsController < ApplicationController
-  # метод before_action добавляет срабатывание метода find_card 
-  skip_before_action :require_login, only: :logged_or_not
-  before_action :find_card, except: [:new, :create, :index, :home, :logged_or_not]
+class Dashboard::CardsController < Dashboard::BaseController
   
-  def logged_or_not
-    if logged_in?
-      redirect_to home_path
-    else
-      render 'logged_or_not'
-    end
-  end
+  # метод before_action добавляет срабатывание метода find_card 
+  before_action :find_card, except: [:new, :create, :index, :home]
 
   def new
     # добавили, чтобы при отображении вьюхи new @cards не был nil 
@@ -18,11 +10,7 @@ class CardsController < ApplicationController
   end
   
   def home
-    if params[:card_id]
-      @card = current_user.cards.find(params[:card_id])
-    else
-      @card = current_user.pending_cards.first
-    end
+    @card = current_user.pending_cards.first
   end
 
   def index
@@ -35,7 +23,7 @@ class CardsController < ApplicationController
    # сохраняем запись в базу
    if @card.save
      # идем в представление show
-     redirect_to user_card_path(current_user, @card)
+     redirect_to dashboard_user_card_path(current_user, @card)
    else
     # если не сработало, то перегружаем представление
     render 'new' 
@@ -51,7 +39,7 @@ class CardsController < ApplicationController
   
   def update
     if @card.update(card_params)
-      redirect_to user_cards_path
+      redirect_to dashboard_user_cards_path
     else
       render 'edit'
     end
@@ -59,7 +47,7 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to user_cards_path 
+    redirect_to dashboard_user_cards_path 
   end
 
   def review

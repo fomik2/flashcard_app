@@ -1,5 +1,5 @@
-class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:index, :new, :create]
+class Dashboard::UsersController < Dashboard::BaseController
+  skip_before_action :require_login, only: [:new, :create]
 
   def new
     @user = User.new

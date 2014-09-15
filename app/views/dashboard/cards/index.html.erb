@@ -20,9 +20,9 @@
         <td><%= card.original_text %> </td>
         <td><%= card.translated_text %> </td>
         <td><%= card.review_date.strftime("%d/%m/%Y")  %> </td>
-        <td><%= link_to 'Показать', user_card_path(current_user, card) %></td>
-        <td><%= link_to 'Редактировать', edit_user_card_path(current_user, card) %></td>
-        <td><%= link_to 'Удалить', user_card_path(current_user, card), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= link_to 'Показать', dashboard_user_card_path(current_user, card) %></td>
+        <td><%= link_to 'Редактировать', edit_dashboard_user_card_path(current_user, card) %></td>
+        <td><%= link_to 'Удалить', dashboard_user_card_path(current_user, card), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>
     <% end %>
   </table>

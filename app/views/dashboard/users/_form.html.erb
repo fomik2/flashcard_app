@@ -10,7 +10,7 @@
   </div>
    </br>
 <% end %>
-<%= simple_form_for @user do |f| %>
+<%= simple_form_for [:dashboard, @user] do |f| %>
   <%= f.input :email, label: 'E-mail'  %>
   <%= f.input :password, label: 'Password' %>
   <%= f.input :password_confirmation, label: 'Password Confirmation' %>

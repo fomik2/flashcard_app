@@ -3,13 +3,13 @@ $("span.error").remove();
 <% if @result == :success %>
   <% if @card %>
     $("#form_translate").remove();
-    $("#card_index").html("<%= j render 'cards/card', card: @card %>");
+    $("#card_index").html("<%= j render 'dashboard/cards/card', card: @card %>");
     $("#content").append("<div class='alert alert-success'>Верно! Следующая карточка</div>");
   <% else %>
-    $("#content").html("<%= j render 'cards/no_more_cards'  %>");
+    $("#content").html("<%= j render 'dashboard/cards/no_more_cards'  %>");
   <% end %>
 <% elsif @result == :misprint %>
-  $("#content").append("<span class='no_more_cards'>Опечатка. Вы написали <%= params[:translated_text] %>, а надо <%= @card.translated_text %></span>");
+  $("#content").append("<span class='error'>Опечатка. Вы написали <%= params[:translated_text] %>, а надо <%= @card.translated_text %></span>");
 <% else %>
   $("#content").append("<div class='alert alert-error'>Неверно!</div>");
 <% end %>
