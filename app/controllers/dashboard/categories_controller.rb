@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class Dashboard::CategoriesController < Dashboard::BaseController
 
   before_action :find_category, except: [:new, :create, :index]
   
@@ -22,11 +22,12 @@ class CategoriesController < ApplicationController
   end
   
   def edit 
+  
   end
 
   def update
     if @category.update(category_params)
-      redirect_to categories_path
+      redirect_to dashboard_categories_path
     else
       render 'edit'
     end
@@ -34,7 +35,7 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to categories_path
+    redirect_to dashboard_categories_path
   end
   
 private

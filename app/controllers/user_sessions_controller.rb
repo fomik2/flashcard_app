@@ -1,5 +1,13 @@
 class UserSessionsController < ApplicationController
-  skip_before_action :require_login, except: [:destroy]
+  before_action :require_login, only: [:destroy]
+
+  def logged_or_not
+    if logged_in?
+      redirect_to home_path
+    else
+      render 'logged_or_not'
+    end
+  end
 
   def new
     @user = User.new
